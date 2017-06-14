@@ -15,77 +15,46 @@
         <!-- START PROGRESS BARS -->
         <div class="row">
             <div class="col-md-12">
-                <div class="callout callout-warning">
+                <div class="callout callout-info">
                     <h4>注意!</h4>
-                    <p>请勿在任何地方公开节点地址！</p>
-                    <p>流量比例为0.5即使用1000MB按照500MB流量记录记录结算.</p>
+                    <h5>请勿在任何地方公开节点地址！</h5>
+                    <h5>流量比例为0.5即使用100MB按照50MB流量记录记录结算。</h5>
                     {$msg}
                 </div>
             </div>
         </div>
-
-        {foreach $nodes as $node}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-widget">
-                        <div class="box-body">
-                            <ul class="products-list product-list-in-box">
-                                <li class="item">
-                                    <div class="product-img">
-                                        <img src="../assets/public/img/iconfont-server.png" alt="Server Node">
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="./node/{$node->id}" class="product-title">{$node->name} <span
-                                                    class="label label-info pull-right">{$node->status}</span></a>
-                                        <p>
-                                            {$node->info}
-                                        </p>
-                                    </div>
-                                </li><!-- /.item -->
-                            </ul>
-                        </div>
-                        <div class="box-footer no-padding">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <ul class="nav nav-stacked">
-                                        <li><a href="./node/{$node->id}">节点地址 <span
-                                                        class="pull-right badge bg-blue">{$node->server}</span></a></li>
-                                        <li><a href="./node/{$node->id}">连接端口 <span
-                                                        class="pull-right badge bg-aqua">{$user->port}</span></a></li>
-                                        <li><a href="./node/{$node->id}">加密方式 <span
-                                                        class="pull-right badge bg-green">{if $node->custom_method == 1} {$user->method} {else} {$node->method} {/if}</span></a>
-                                        </li>
-                                        <li><a href="./node/{$node->id}">负载: <span
-                                                        class="pull-right badge bg-green">{$node->getNodeLoad()}</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <ul class="nav nav-stacked">
-                                        <li><a href="./node/{$node->id}">流量比例 <span
-                                                        class="pull-right badge bg-blue">{$node->traffic_rate}</span></a>
-                                        </li>
-                                        <li><a href="./node/{$node->id}">在线人数 <span
-                                                        class="pull-right badge bg-aqua">{$node->getOnlineUserCount()}</span></a>
-                                        </li>
-                                        <li><a href="./node/{$node->id}">产生流量 <span
-                                                        class="pull-right badge bg-green">{$node->getTrafficFromLogs()}</span></a>
-                                        </li>
-                                        <li><a href="./node/{$node->id}">Uptime: <span
-                                                        class="pull-right badge bg-green">{$node->getNodeUptime()}</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- /.widget-user -->
-                </div><!-- /.col -->
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                 <h3 class="box-title">线路列表</h3>
             </div>
-            <!-- /.row -->
-
-
-        {/foreach}
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>节点位置</th>
+                        <th>节点信息</th>
+                        <th>服务器地址</th>
+                        <th>端口</th>
+                        <th>密码<a href="/user/edit">（修改）</a></th>
+                        <th>加密方式</th>
+                        <th>流量比例</th>
+                        <th>账号和二维码</th>
+                    </tr>
+                    {foreach $nodes as $node}
+                    <tr>
+                        <td><a href="./node/{$node->id}">{$node->name}</a></td>
+                        <td>{$node->info}</td>
+                        <td>{$node->server}</td>
+                        <td>{$user->port}</td>
+                        <td>{$user->passwd}</td>
+                        <td>{$node->method}</td>
+                        <td><span class="label label-info">{$node->traffic_rate}</span></td>
+                        <td><a href="./node/{$node->id}" type="button" class="btn btn-primary btn-sm">查看<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> </a> </td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 </div><!-- /.content-wrapper -->

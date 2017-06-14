@@ -58,6 +58,8 @@
                             <dd>{$user->usedTraffic()}</dd>
                             <dt>剩余流量</dt>
                             <dd>{$user->unusedTraffic()}</dd>
+                            <dt>流量规则</dt>
+                            <dd>为防止滥用行为，每账户每月流量上限100G，次月1日流量清零重置。</dd>
                         </dl>
                     </div>
                     <!-- /.box-body -->
@@ -98,17 +100,17 @@
                     <div class="box-header">
                         <i class="fa  fa-paper-plane"></i>
 
-                        <h3 class="box-title">连接信息</h3>
+                        <h3 class="box-title">个人ss连接信息</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <dl class="dl-horizontal">
+                            <dt>服务器</dt>
+                            <dd><a href="/user/node">节点列表</a></dd>
                             <dt>端口</dt>
                             <dd>{$user->port}</dd>
-                            <dt>密码</dt>
+                            <dt>密码（可修改）</dt>
                             <dd>{$user->passwd}</dd>
-                            <dt>自定义加密方式</dt>
-                            <dd>{$user->method}</dd>
                             <dt>上次使用</dt>
                             <dd>{$user->lastSsTime()}</dd>
                         </dl>
@@ -116,6 +118,22 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                        <h3 class="box-title">配置手册</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <div class="list-group">
+                        <a href="/sstt/windows.html" target="_blank" class="list-group-item">Windows电脑配置手册</a>
+                        <a href="/sstt/osx.html" target="_blank" class="list-group-item">苹果（MAC）电脑配置手册</a>
+                        <a href="/sstt/iphone.html" target="_blank" class="list-group-item">苹果手机（平板）配置手册</a>
+                        <a href="/sstt/android.html" target="_blank" class="list-group-item">安卓手机配置手册</a>
+                    </div>
+                </div>
+                    <!-- /.box-body -->
+                </div>
             </div>
             <!-- /.col (right) -->
         </div>
