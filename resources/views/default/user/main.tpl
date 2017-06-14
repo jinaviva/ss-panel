@@ -108,12 +108,6 @@
                 </li>
 
                 <li>
-                    <a href="/user/profile">
-                        <i class="fa fa-user"></i> <span>我的信息</span>
-                    </a>
-                </li>
-
-                <li>
                     <a href="/user/trafficlog">
                         <i class="fa fa-history"></i> <span>流量记录</span>
                     </a>
@@ -122,13 +116,13 @@
 
                 <li>
                     <a href="/user/edit">
-                        <i class="fa  fa-pencil"></i> <span>修改资料</span>
+                        <i class="fa  fa-pencil"></i> <span>修改密码</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/user/invite">
-                        <i class="fa fa-users"></i> <span>邀请好友</span>
+                    <a href="/user/profile">
+                        <i class="fa fa-user"></i> <span>账户续费</span>
                     </a>
                 </li>
 
