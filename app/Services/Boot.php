@@ -39,6 +39,7 @@ class Boot
         // Init Eloquent ORM Connection
         $capsule = new Capsule;
         $capsule->addConnection(Config::getDbConfig());
+        $capsule->setAsGlobal(); //important
         $capsule->bootEloquent();
     }
 }
