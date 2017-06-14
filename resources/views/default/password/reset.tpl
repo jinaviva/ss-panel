@@ -53,6 +53,40 @@
     // $("#msg-error").hide(100);
     // $("#msg-success").hide(100);
 </script>
+<script type="text/javascript">
+    var t = undefined;
+    function resetLoading(){
+        $("#msg-error").hide(10);
+        $("#msg-success").hide(10);
+        $("#reset").attr("disabled","disabled");
+        $("#reset").html("发送中……");
+        if (t != undefined){
+            clearTimeout(t);
+        }
+        t = setTimeout("resetFailLoading1()",10000);
+    }
+    function resetFailLoading(){
+        $("#reset").removeAttr("disabled");
+        $("#reset").html("重置密码");
+        if (t != undefined){
+            clearTimeout(t);
+        }
+    }
+
+    function resetFailLoading1(){
+        $("#reset").removeAttr("disabled");
+        $("#reset").html("重置密码");
+    }
+
+    function resetSuccessLoading(){
+        //$("#login").removeAttr("disabled");
+        $("#reset").html("正在跳转……");
+        if (t != undefined){
+            clearTimeout(t);
+        }
+        t = setTimeout("resetFailLoading1()",10000);
+    }
+</script>
 <script>
     $(document).ready(function(){
         function reset(){
@@ -63,22 +97,28 @@
                 data:{
                     email: $("#email").val(),
                 },
+                beforeSend: function(){
+                    resetLoading();
+                },
                 success:function(data){
                     if(data.ret == 1){
-                        $("#msg-error").hide(100);
+                        //$("#msg-error").hide(100);
                         $("#msg-success").show(100);
                         $("#msg-success-p").html(data.msg);
-                       // window.setTimeout("location.href='/auth/login'", 2000);
+                        // window.setTimeout("location.href='/auth/login'", 2000);
+                        resetFailLoading();
                     }else{
-                        $("#msg-error").hide(10);
+                        //$("#msg-error").hide(10);
                         $("#msg-error").show(100);
                         $("#msg-error-p").html(data.msg);
+                        resetFailLoading();
                     }
                 },
                 error:function(jqXHR){
-                    $("#msg-error").hide(10);
+                    //$("#msg-error").hide(10);
                     $("#msg-error").show(100);
                     $("#msg-error-p").html("发生错误："+jqXHR.status);
+                    resetFailLoading();
                 }
             });
         }
