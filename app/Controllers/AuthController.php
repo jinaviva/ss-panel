@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\InviteCode;
+use App\Models\ChargeCode;
+use App\Models\ConfigModel;
 use App\Models\User;
 use App\Services\Auth;
 use App\Services\Auth\EmailVerify;
@@ -13,6 +15,7 @@ use App\Utils\Check;
 use App\Utils\Hash;
 use App\Utils\Http;
 use App\Utils\Tools;
+use Illuminate\Database\Capsule\Manager as DB;
 
 
 /**
@@ -97,7 +100,8 @@ class AuthController extends BaseController
         $repasswd = $request->getParam('repasswd');
         $code = $request->getParam('code');
         $verifycode = $request->getParam('verifycode');
-
+        
+        /*
         // check code
         $c = InviteCode::where('code', $code)->first();
         if ($c == null) {
@@ -106,7 +110,33 @@ class AuthController extends BaseController
             $res['msg'] = "邀请码无效";
             return $this->echoJson($response, $res);
         }
-
+        */
+        
+        //check charge code
+        $charge_code = ChargeCode::where('code', $code)->first();
+        if ($charge_code == null) {
+            $ret['ret'] = 0;
+            $res['error_code'] = self::WrongCode;
+            $res['msg'] = "激活码无效";
+            return $this->echoJson($response, $res);
+        }
+        if ($charge_code->used <> 0 ){
+            $ret['ret'] = 0;
+            $res['error_code'] = self::WrongCode;
+            $res['msg'] = "激活码无效";
+            return $this->echoJson($response, $res);
+        }
+        
+        // get current node group id
+        $node_group = ConfigModel::where('key','cur_node_group')->first();
+        if ($node_group != null) {
+            $np_id = $node_group->value;
+        }
+        else {
+            $np_id = 1; //使用默认np_id
+            //throw_exception("获取数据库node_group失败，使用默认id值1");
+        }
+        
         // check email format
         if (!Check::isEmailLegal($email)) {
             $res['ret'] = 0;
@@ -118,7 +148,7 @@ class AuthController extends BaseController
         if (strlen($passwd) < 8) {
             $res['ret'] = 0;
             $res['error_code'] = self::PasswordTooShort;
-            $res['msg'] = "密码太短";
+            $res['msg'] = "密码太短啦（8位以上）";
             return $this->echoJson($response, $res);
         }
 
@@ -166,19 +196,44 @@ class AuthController extends BaseController
         $user->u = 0;
         $user->d = 0;
         $user->transfer_enable = Tools::toGB(Config::get('defaultTraffic'));
-        $user->invite_num = Config::get('inviteNum');
+        $user->invite_num = 0;//Config::get('inviteNum');
         $user->reg_ip = Http::getClientIP();
-        $user->ref_by = $c->user_id;
-
+        $user->ref_by = 1;//$c->user_id;
+        $user->node_group = $np_id;
+        $user->expire_time = time() + $charge_code->charge_time * 86400;
+        
+        $charge_code->used = 1;
+        $charge_code->used_user_email = $email;
+        $charge_code->used_at = time();
+        
+        //用户创建和充值事务处理。
+        try
+        {
+            DB::beginTransaction();
+            $user->save();
+            $charge_code->save();
+            DB::commit();
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            $res['ret'] = 0;
+            $res['msg'] = $e;//"未知错误";
+            return $this->echoJson($response, $res);
+        }
+        $res['ret'] = 1;
+        $res['msg'] = "注册成功";
+        //$c->delete();
+        return $this->echoJson($response, $res);
+        
+        /*
         if ($user->save()) {
             $res['ret'] = 1;
             $res['msg'] = "注册成功";
             $c->delete();
             return $this->echoJson($response, $res);
         }
-        $res['ret'] = 0;
-        $res['msg'] = "未知错误";
-        return $this->echoJson($response, $res);
+        */
     }
 
     public function sendVerifyEmail($request, $response, $args)

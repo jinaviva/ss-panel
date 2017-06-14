@@ -31,10 +31,18 @@ class PasswordController extends BaseController
             $rs['msg'] = '此邮箱不存在.';
             return $response->getBody()->write(json_encode($rs));
         }
-        Password::sendResetEmail($email);
-        $rs['ret'] = 1;
-        $rs['msg'] = '重置邮件已经发送,请检查邮箱.';
-        return $response->getBody()->write(json_encode($rs));
+        $sendRes = Password::sendResetEmail($email);
+        if ($sendRes) {
+            $rs['ret'] = 1;
+            $rs['msg'] = '重置邮件已经发送,请检查邮箱.';
+            return $response->getBody()->write(json_encode($rs));
+        }
+        else {
+            $rs['ret'] = 0;
+            $rs['msg'] = '发送失败,请重试.';
+            return $response->getBody()->write(json_encode($rs));
+        }
+        
     }
 
     public function token($request, $response, $args)
@@ -59,6 +67,12 @@ class PasswordController extends BaseController
         if ($user == null) {
             $rs['ret'] = 0;
             $rs['msg'] = '链接已经失效,请重新获取';
+            return $response->getBody()->write(json_encode($rs));
+        }
+        
+        if (strlen($password) < 8) {
+            $rs['ret'] = 0;
+            $rs['msg'] = "密码太短啦（8位以上）";
             return $response->getBody()->write(json_encode($rs));
         }
 
