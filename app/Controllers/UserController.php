@@ -6,11 +6,13 @@ use App\Models\CheckInLog;
 use App\Models\InviteCode;
 use App\Models\Node;
 use App\Models\TrafficLog;
+use App\Models\ChargeCode;
 use App\Services\Auth;
 use App\Services\Config;
 use App\Services\DbConfig;
 use App\Utils\Hash;
 use App\Utils\Tools;
+use Illuminate\Database\Capsule\Manager as DB;
 
 
 /**
@@ -45,7 +47,7 @@ class UserController extends BaseController
     {
         $msg = DbConfig::get('user-node');
         $user = Auth::getUser();
-        $nodes = Node::where('type', 1)->orderBy('sort')->get();
+        $nodes = Node::where([['type', '=', 1], ['node_group', '=', $user->node_group]])->orderBy('sort')->get();
         return $this->view()->assign('nodes', $nodes)->assign('user', $user)->assign('msg', $msg)->display('user/node.tpl');
     }
 
@@ -55,26 +57,33 @@ class UserController extends BaseController
         $id = $args['id'];
         $node = Node::find($id);
 
-        if ($node == null) {
-
+        if ($node == null or $node->node_group <> $this->user->node_group) {
+            echo("请求错误");
+            return;
         }
         $ary['server'] = $node->server;
         $ary['server_port'] = $this->user->port;
         $ary['password'] = $this->user->passwd;
         $ary['method'] = $node->method;
-        if ($node->custom_method) {
-            $ary['method'] = $this->user->method;
-        }
+        $ary['node_name'] = $node->name;
+        //不允许自定义加密方法
+        //if ($node->custom_method) {
+            //$ary['method'] = $this->user->method;
+        //} 
         $json = json_encode($ary);
         $json_show = json_encode($ary, JSON_PRETTY_PRINT);
         $ssurl = $ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port'];
         $ssqr = "ss://" . base64_encode($ssurl);
-
+        
+        /*
         $surge_base = Config::get('baseUrl') . "/downloads/ProxyBase.conf";
         $surge_proxy = "#!PROXY-OVERRIDE:ProxyBase.conf\n";
         $surge_proxy .= "[Proxy]\n";
         $surge_proxy .= "Proxy = custom," . $ary['server'] . "," . $ary['server_port'] . "," . $ary['method'] . "," . $ary['password'] . "," . Config::get('baseUrl') . "/downloads/SSEncrypt.module";
+
         return $this->view()->assign('json', $json)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->display('user/nodeinfo.tpl');
+        */
+        return $this->view()->assign('json', $json)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ary', $ary)->display('user/nodeinfo.tpl');
     }
 
     public function profile($request, $response, $args)
@@ -139,7 +148,7 @@ class UserController extends BaseController
 
         if (strlen($pwd) < 8) {
             $res['ret'] = 0;
-            $res['msg'] = "密码太短啦";
+            $res['msg'] = "密码太短啦（8位以上）";
             return $response->getBody()->write(json_encode($res));
         }
         $hashPwd = Hash::passwordHash($pwd);
@@ -210,7 +219,7 @@ class UserController extends BaseController
         $res['ret'] = 1;
         return $this->echoJson($response, $res);
     }
-
+/*
     public function kill($request, $response, $args)
     {
         return $this->view()->display('user/kill.tpl');
@@ -233,7 +242,7 @@ class UserController extends BaseController
         $res['msg'] = "GG!您的帐号已经从我们的系统中删除.";
         return $this->echoJson($response, $res);
     }
-
+*/
     public function trafficLog($request, $response, $args)
     {
         $pageNum = 1;
@@ -243,5 +252,68 @@ class UserController extends BaseController
         $traffic = TrafficLog::where('user_id', $this->user->id)->orderBy('id', 'desc')->paginate(15, ['*'], 'page', $pageNum);
         $traffic->setPath('/user/trafficlog');
         return $this->view()->assign('logs', $traffic)->display('user/trafficlog.tpl');
+    }
+    
+    public function charge($request, $response, $args)
+    {
+        return $this->view()->display('user/charge.tpl');
+    }
+    
+    public function handleCharge($request, $response, $args)
+    {
+        $code = $request->getParam("code");
+        $charge_code = ChargeCode::where('code', $code)->first();
+        if ($charge_code == null) {
+            $ret['ret'] = 0;
+            $res['error_code'] = 501;
+            $res['msg'] = "充值码无效或已被使用";
+            return $this->echoJson($response, $res);
+        }
+        if ($charge_code->used <> 0 ){
+            $ret['ret'] = 0;
+            $res['error_code'] = 501;
+            $res['msg'] = "充值码无效或已被使用";
+            return $this->echoJson($response, $res);
+        }
+        $user = Auth::getUser();
+        if ($user == null){
+            $ret['ret'] = 0;
+            $res['error_code'] = 501;
+            $res['msg'] = "获取充值账户失败，请重新登录";
+            return $this->echoJson($response, $res);
+        }
+        $charge_code->used = 1;
+        $charge_code->used_user_email = $user->email;
+        $charge_code->used_at = time();
+        
+        $user_exp_time = $user->expire_time;
+        if ($user_exp_time >= time()) {
+            $user->expire_time += $charge_code->charge_time * 86400;
+        }
+        else {
+            $user->expire_time = time() + $charge_code->charge_time * 86400;
+        }
+        $user->enable = 1;
+        //充值是否重置流量？
+        
+        //用户充值事务处理
+        try
+        {
+            DB::beginTransaction();
+            $user->save();
+            $charge_code->save();
+            DB::commit();
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            $res['ret'] = 0;
+            $res['msg'] = "充值失败";
+            return $this->echoJson($response, $res);
+        }
+        $res['ret'] = 1;
+        $res['msg'] = "充值成功";
+        //$c->delete();
+        return $this->echoJson($response, $res);
     }
 }
