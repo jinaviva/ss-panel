@@ -3,10 +3,10 @@
         {$userFooter}
     </div>
     <div class="pull-right hidden-xs">
-        Made with Love
+        91xyzss.com
     </div>
     <strong>Copyright &copy; {date("Y")} <a href="#">{$config['appName']}</a> </strong>
-    All rights reserved. Powered by <b>ss-panel</b> {$config['version']} | <a href="/tos">服务条款 </a>
+    All rights reserved. | <a href="/assets/tos.html" target="_blank">服务条款 </a>
 </footer>
 </div><!-- ./wrapper -->
 
