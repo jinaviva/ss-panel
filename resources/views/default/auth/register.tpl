@@ -6,7 +6,7 @@
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">注册，然后变成一只猫。</p>
+        <p class="login-box-msg">注册，然后开始使用服务器账号……</p>
 
         <div class="form-group has-feedback">
             <input type="text" id="name" class="form-control" placeholder="昵称"/>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-group has-feedback">
-            <input type="text" id="email" class="form-control" placeholder="邮箱"/>
+            <input type="text" id="email" class="form-control" placeholder="邮箱（用户的唯一凭证，请准确填写）"/>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
 
@@ -40,12 +40,12 @@
         </div>
 
         <div class="form-group has-feedback">
-            <input type="text" id="code" value="{$code}" class="form-control" placeholder="邀请码"/>
+            <input type="text" id="code" value="{$code}" class="form-control" placeholder="充值码"/>
             <span class="glyphicon glyphicon-send form-control-feedback"></span>
         </div>
 
         <div class="form-group has-feedback">
-            <p>注册即代表同意<a href="/tos">服务条款</a></p>
+            <p>注册即代表同意<a href="/assets/tos.html" target="_blank">服务条款</a> <a href="{$config['buyCard']}" target="_blank" class="btn btn-info btn-xs" style="float: right;">充值码购买</a></p>
         </div>
 
         <div class="form-group has-feedback">
@@ -86,6 +86,40 @@
 
     });
 </script>
+<script type="text/javascript">
+    var t = undefined;
+    function regLoading(){
+        $("#msg-error").hide(10);
+        $("#msg-success").hide(10);
+        $("#reg").attr("disabled","disabled");
+        $("#reg").html("提交注册中……");
+        if (t != undefined){
+            clearTimeout(t);
+        }
+        t = setTimeout("regFailLoading1()",10000);
+    }
+    function regFailLoading(){
+        $("#reg").removeAttr("disabled");
+        $("#reg").html("同意服务条款并提交注册");
+        if (t != undefined){
+            clearTimeout(t);
+        }
+    }
+
+    function regFailLoading1(){
+        $("#reg").removeAttr("disabled");
+        $("#reg").html("同意服务条款并提交注册");
+    }
+
+    function regSuccessLoading(){
+        //$("#login").removeAttr("disabled");
+        $("#reg").html("正在跳转……");
+        if (t != undefined){
+            clearTimeout(t);
+        }
+        t = setTimeout("regFailLoading1()",10000);
+    }
+</script>
 <script>
     $(document).ready(function () {
         function register() {
@@ -102,22 +136,28 @@
                     verifycode: $("#verifycode").val(),
                     agree: $("#agree").val()
                 },
+                beforeSend: function(){
+                    regLoading();
+                },
                 success: function (data) {
                     if (data.ret == 1) {
-                        $("#msg-error").hide(10);
+                        //$("#msg-error").hide(10);
                         $("#msg-success").show(100);
                         $("#msg-success-p").html(data.msg);
                         window.setTimeout("location.href='/auth/login'", 2000);
+                        regFailLoading();
                     } else {
-                        $("#msg-success").hide(10);
+                        //$("#msg-success").hide(10);
                         $("#msg-error").show(100);
                         $("#msg-error-p").html(data.msg);
+                        regFailLoading();
                     }
                 },
                 error: function (jqXHR) {
-                    $("#msg-error").hide(10);
+                    //$("#msg-error").hide(10);
                     $("#msg-error").show(100);
                     $("#msg-error-p").html("发生错误：" + jqXHR.status);
+                    regFailLoading();
                 }
             });
         }
