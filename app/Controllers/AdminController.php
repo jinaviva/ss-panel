@@ -58,7 +58,6 @@ class AdminController extends UserController
         }
         $traffic = CheckInLog::orderBy('id', 'desc')->paginate(15, ['*'], 'page', $pageNum);
         $traffic->setPath('/admin/checkinlog');
-		//var_dump($traffic);
         return $this->view()->assign('logs', $traffic)->display('admin/checkinlog.tpl');
     }
 
@@ -70,7 +69,6 @@ class AdminController extends UserController
         }
         $logs = TrafficLog::orderBy('id', 'desc')->paginate(15, ['*'], 'page', $pageNum);
         $logs->setPath('/admin/trafficlog');
-		//var_dump($logs);
         return $this->view()->assign('logs', $logs)->display('admin/trafficlog.tpl');
     }
 
