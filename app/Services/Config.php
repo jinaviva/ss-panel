@@ -16,6 +16,8 @@ class Config extends PongtanConfig
             "checkinTime" => self::get("checkinTime"),
             "checkinMin" => self::get("checkinMin"),
             "checkinMax" => self::get("checkinMax"),
+            "buyCard" => self::getBuyCardAddr(),
+            "serviceQq" => self::getServiceQq(),
         ];
     }
 
@@ -26,6 +28,24 @@ class Config extends PongtanConfig
             return self::get("appName");
         }
         return $appName;
+    }
+    
+    public static function getBuyCardAddr()
+    {
+        $buyCard = DbConfig::get('buy_card_addr');
+        if ($buyCard == null || $buyCard == "") {
+            return self::get("buyCard");
+        }
+        return $buyCard;
+    }
+    
+    public static function getServiceQq()
+    {
+        $serviceQq = DbConfig::get('service_qq');
+        if ($serviceQq == null || $serviceQq == "") {
+            return self::get("serviceQq");
+        }
+        return $serviceQq;
     }
 
     public static function getDbConfig()
