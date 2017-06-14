@@ -6,7 +6,7 @@
         91xyzss.com
     </div>
     <strong>Copyright &copy; {date("Y")} <a href="#">{$config['appName']}</a> </strong>
-    All rights reserved. | <a href="/assets/tos.html" target="_blank">服务条款 </a>
+    All rights reserved. | <a href="/sstt/tos.html" target="_blank">服务条款 </a>
 </footer>
 </div><!-- ./wrapper -->
 
