@@ -28,6 +28,8 @@ class User extends Model
         "transfer_enable" => 'float',
         "enable" => 'int',
         'is_admin' => 'boolean',
+        'node_group' => 'int',
+        'pass_modify_times' => 'int',
     ];
 
     /**
@@ -35,14 +37,25 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = ['pass', 'last_get_gift_time', 'last_rest_pass_time', 'reg_ip', 'is_email_verify', 'user_name', 'ref_by', 'is_admin'];
+    protected $hidden = ['pass', 'last_get_gift_time', 'last_rest_pass_time', 'reg_ip', 'is_email_verify', 'user_name', 'ref_by', 'is_admin', 'node_group'];
 
     public function getGravatarAttribute()
     {
-        $hash = md5(strtolower(trim($this->attributes['email'])));
-        return "https://secure.gravatar.com/avatar/$hash";
+        //$hash = md5(strtolower(trim($this->attributes['email'])));
+        //return "https://secure.gravatar.com/avatar/$hash";
+        return "/assets/avatar.jpg";
     }
-
+    
+    public function getEnableAttribute($value)
+    {
+        if ($value == 0) {
+            return "禁用";
+        }
+        else {
+            return "正常";
+        }
+    }
+    
     public function isAdmin()
     {
         return $this->attributes['is_admin'];
@@ -51,7 +64,7 @@ class User extends Model
     public function lastSsTime()
     {
         if ($this->attributes['t'] == 0) {
-            return "从未使用喵";
+            return "从未使用";
         }
         return Tools::toDateTime($this->attributes['t']);
     }
@@ -63,6 +76,14 @@ class User extends Model
         }
         return Tools::toDateTime($this->attributes['last_check_in_time']);
     }
+    
+    public function expireTime()
+    {
+        if ($this->attributes['expire_time'] == 0) {
+            return "锁定";
+        }
+        return Tools::toDateTime($this->attributes['expire_time']);
+    }
 
     public function regDate()
     {
@@ -72,12 +93,14 @@ class User extends Model
     public function updatePassword($pwd)
     {
         $this->pass = Hash::passwordHash($pwd);
+        $this->pass_modify_times += 1;
         $this->save();
     }
 
     public function updateSsPwd($pwd)
     {
         $this->passwd = $pwd;
+        $this->pass_modify_times += 1;
         $this->save();
     }
 
