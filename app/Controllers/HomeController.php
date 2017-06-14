@@ -23,8 +23,9 @@ class HomeController extends BaseController
 
     public function index()
     {
-        $homeIndexMsg = DbConfig::get('home-index');
-        return $this->view()->assign('homeIndexMsg', $homeIndexMsg)->display('index.tpl');
+        //$homeIndexMsg = DbConfig::get('home-index');
+        //return $this->view()->assign('homeIndexMsg', $homeIndexMsg)->display('index.tpl');
+        return $this->view()->display('auth/login.tpl');
     }
 
     public function code()
