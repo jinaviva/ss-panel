@@ -25,11 +25,16 @@
                             <dd>{$user->user_name}</dd>
                             <dt>邮箱</dt>
                             <dd>{$user->email}</dd>
+                            <dt>账户状态</dt>
+                            <dd>{$user->enable}</dd>
+                            <dt>到期时间</dt>
+                            <dd>{$user->expireTime()}</dd>
                         </dl>
 
                     </div>
                     <div class="box-footer">
-                        <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a>
+                        <!-- <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a> -->
+                        <a class="btn btn-primary btn-lg" href="charge">为该账户充值</a>
                     </div>
                     <!-- /.box -->
                 </div>
