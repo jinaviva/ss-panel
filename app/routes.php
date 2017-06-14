@@ -32,8 +32,9 @@ $app->add(new WhoopsMiddleware);
 
 // Home
 $app->get('/', 'App\Controllers\HomeController:index');
-$app->get('/code', 'App\Controllers\HomeController:code');
-$app->get('/tos', 'App\Controllers\HomeController:tos');
+$app->get('/r', 'App\Controllers\AuthController:register');
+//$app->get('/code', 'App\Controllers\HomeController:code');
+//$app->get('/tos', 'App\Controllers\HomeController:tos');
 $app->get('/debug', 'App\Controllers\HomeController:debug');
 $app->post('/debug', 'App\Controllers\HomeController:postDebug');
 
@@ -45,17 +46,19 @@ $app->group('/user', function () {
     $this->get('/node', 'App\Controllers\UserController:node');
     $this->get('/node/{id}', 'App\Controllers\UserController:nodeInfo');
     $this->get('/profile', 'App\Controllers\UserController:profile');
-    $this->get('/invite', 'App\Controllers\UserController:invite');
-    $this->post('/invite', 'App\Controllers\UserController:doInvite');
+    //$this->get('/invite', 'App\Controllers\UserController:invite');
+    //$this->post('/invite', 'App\Controllers\UserController:doInvite');
     $this->get('/edit', 'App\Controllers\UserController:edit');
     $this->post('/password', 'App\Controllers\UserController:updatePassword');
     $this->post('/sspwd', 'App\Controllers\UserController:updateSsPwd');
-    $this->post('/method', 'App\Controllers\UserController:updateMethod');
+    //$this->post('/method', 'App\Controllers\UserController:updateMethod');
     $this->get('/sys', 'App\Controllers\UserController:sys');
     $this->get('/trafficlog', 'App\Controllers\UserController:trafficLog');
-    $this->get('/kill', 'App\Controllers\UserController:kill');
-    $this->post('/kill', 'App\Controllers\UserController:handleKill');
+    //$this->get('/kill', 'App\Controllers\UserController:kill');
+    //$this->post('/kill', 'App\Controllers\UserController:handleKill');
     $this->get('/logout', 'App\Controllers\UserController:logout');
+    $this->get('/charge', 'App\Controllers\UserController:charge');
+    $this->post('/charge', 'App\Controllers\UserController:handleCharge');
 })->add(new Auth());
 
 // Auth
