@@ -31,12 +31,12 @@ $app->add(new WhoopsMiddleware);
 
 
 // Home
-$app->get('/', 'App\Controllers\HomeController:index');
-$app->get('/r', 'App\Controllers\AuthController:register');
+$app->get('/', 'App\Controllers\HomeController:index')->add(new Guest());
+$app->get('/r', 'App\Controllers\AuthController:register')->add(new Guest());
 //$app->get('/code', 'App\Controllers\HomeController:code');
 //$app->get('/tos', 'App\Controllers\HomeController:tos');
-$app->get('/debug', 'App\Controllers\HomeController:debug');
-$app->post('/debug', 'App\Controllers\HomeController:postDebug');
+//$app->get('/debug', 'App\Controllers\HomeController:debug');
+//$app->post('/debug', 'App\Controllers\HomeController:postDebug');
 
 // User Center
 $app->group('/user', function () {
