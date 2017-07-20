@@ -49,7 +49,7 @@ class User extends Model
     public function getEnableAttribute($value)
     {
         if ($value == 0) {
-            return "禁用";
+            return "到期停用(续费后开通)";
         }
         else {
             return "正常";
