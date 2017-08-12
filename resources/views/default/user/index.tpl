@@ -26,9 +26,21 @@
                     <div class="box-body">
                         <dl class="dl-horizontal">
                             <dt>账户状态</dt>
-                            <dd>{$user->enable}</dd>
+                            <dd>
+                            {if { $user->enable} != "正常" }
+                            <span style="color:red;">{$user->enable}</span>
+                            {else}
+                            {$user->enable}
+                            {/if}
+                            </dd>
                             <dt>账户剩余时间</dt>
-                            <dd>{$user->getRemainingDays()}天</dd>
+                            <dd>
+                            {if { $user->getRemainingDays()} > 0 }
+                            {$user->getRemainingDays()}天
+                            {else}
+                             <span style="color:red;">{$user->getRemainingDays()}天</span>
+                            {/if}
+                            </dd>
                             <dt>ss线路列表</dt>
                             <dd><a href="/user/node">==>点此查看节点列表</a></dd>
                             <dt>使用方法</dt>
