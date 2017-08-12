@@ -46,7 +46,7 @@
                         <td>{$node->info}</td>
                         <td>
                         {$node->server}
-                        {if $user->enable eq 0}
+                        {if $user->enable != "正常"}
                         <span style = "color:red;">系统测试（请忽略）</span>
                         {else}
                         {$node->server}
