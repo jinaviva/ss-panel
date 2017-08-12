@@ -15,7 +15,7 @@
         <!-- START PROGRESS BARS -->
         <div class="row">
             
-            <div class="col-md-6">
+            <div class="col-md-6" style="height:200px>
              <div class="box box-primary">
                     <div class="box-header">
                         <i class="fa  fa-paper-plane"></i>
@@ -42,7 +42,7 @@
                 <!-- /.box -->
             </div>
             <div class="col-md-6">
-                <div class="box box-primary">
+                <div class="box box-primary" style="height:200px>
                     <div class="box-header">
                         <i class="fa fa-bullhorn"></i>
 
@@ -60,7 +60,7 @@
             </div>
             <div class="row">
             <div class="col-md-6">
-                <div class="box box-primary" style="height:500px">
+                <div class="box box-primary" style="height:250px">
                     <div class="box-header">
                         <i class="fa fa-exchange"></i>
 
@@ -96,7 +96,7 @@
             </div>
             <!-- /.col (left) -->
             <div class="col-md-6">
-                <div class="box box-solid">
+                <div class="box box-solid" style="height:250px>
                     <div class="box-header">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                         <h3 class="box-title">配置手册</h3>
