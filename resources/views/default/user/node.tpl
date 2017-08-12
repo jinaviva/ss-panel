@@ -44,7 +44,13 @@
                     <tr>
                         <td><a href="./node/{$node->id}">{$node->name}</a></td>
                         <td>{$node->info}</td>
-                        <td>{$node->server}</td>
+                        <td>
+                        {if $user->enable == 0}
+                        <span style = "color:red;">账户已到期，续费后开通</span>
+                        {else}
+                        {$node->server}
+                        {/if}
+                        </td>
                         <td>{$user->port}</td>
                         <td>{$user->passwd}</td>
                         <td>{$node->method}</td>
