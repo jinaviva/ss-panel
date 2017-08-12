@@ -57,7 +57,8 @@
                 <!-- /.box -->
             </div>
             <!-- /.col (right) -->
-
+            </div>
+            <div class="row">
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
@@ -94,7 +95,8 @@
                 <!-- /.box -->
             </div>
             <!-- /.col (left) -->
-
+            </div>
+            <div class="row">
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
