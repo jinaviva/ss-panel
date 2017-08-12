@@ -61,6 +61,10 @@ class UserController extends BaseController
             echo("请求错误");
             return;
         }
+        if ($this->user->enable <> "正常") {
+            echo(" <h2 style = "color:red;">账户已到期，请续费</h2>");
+            return;
+        }
         $ary['server'] = $node->server;
         $ary['server_port'] = $this->user->port;
         $ary['password'] = $this->user->passwd;
