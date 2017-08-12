@@ -27,6 +27,8 @@
                             <dd>{$user->email}</dd>
                             <dt>账户状态</dt>
                             <dd>{$user->enable}</dd>
+                            <dt>账户剩余时间</dt>
+                            <dd>{$user->getRemainingDays()}天</dd>
                             <dt>到期时间</dt>
                             <dd>{$user->expireTime()}</dd>
                         </dl>
