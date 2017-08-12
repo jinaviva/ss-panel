@@ -86,6 +86,19 @@ class User extends Model
         }
         return Tools::toDateTime($this->attributes['expire_time']);
     }
+    
+    public function getRemainingDays()
+    {
+        $rDays = $this->attributes['expire_time'] - time();
+        if ( $rDays <=0 )
+        {
+            return 0;
+        }
+        else
+        {
+            return  $rDays/60/60/24;
+        }
+    }
 
     public function regDate()
     {
