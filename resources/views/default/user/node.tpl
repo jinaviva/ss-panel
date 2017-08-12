@@ -47,7 +47,7 @@
                         <td>
                         {$node->server}
                         {if $user->enable eq 0}
-                        <span style = "color:red;">账户已到期，续费后开通</span>
+                        <span style = "color:red;">系统测试（请忽略）</span>
                         {else}
                         {$node->server}
                         {/if}
