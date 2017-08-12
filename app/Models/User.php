@@ -96,7 +96,7 @@ class User extends Model
         }
         else
         {
-            return  $rDays/60/60/24;
+            return  ceil($rDays/60/60/24);
         }
     }
 
