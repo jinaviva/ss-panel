@@ -60,7 +60,7 @@
             </div>
             <div class="row">
             <div class="col-md-6">
-                <div class="box box-primary" style="height:200px">
+                <div class="box box-primary" style="height:500px">
                     <div class="box-header">
                         <i class="fa fa-exchange"></i>
 
