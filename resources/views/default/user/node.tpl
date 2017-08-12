@@ -45,9 +45,8 @@
                         <td><a href="./node/{$node->id}">{$node->name}</a></td>
                         <td>{$node->info}</td>
                         <td>
-                        {$node->server}
                         {if $user->enable != "正常"}
-                        <span style = "color:red;">系统测试（请忽略）</span>
+                        <span style = "color:red;">账户已到期，请续费</span>
                         {else}
                         {$node->server}
                         {/if}
