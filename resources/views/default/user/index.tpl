@@ -105,6 +105,9 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <dl class="dl-horizontal">
+                        
+                            <dt>账户剩余时间</dt>
+                            <dd>{$user->getRemainingDays()}天</dd>
                             <dt>服务器</dt>
                             <dd><a href="/user/node">节点列表</a></dd>
                             <dt>端口</dt>
