@@ -54,7 +54,7 @@
             <div class="col-md-6">
                 <div class="callout callout-info">
                     <h3>注意！</h3>
-                    <h4>本站唯一官方充值卡购买地址：<a href="{$config['buyCard']}" target="_blank" class="btn btn-warning btn-sm">充值码购买</a></h4>
+                    <!-- <h4>本站唯一官方充值卡购买地址：<a href="{$config['buyCard']}" target="_blank" class="btn btn-warning btn-sm">充值码购买</a></h4> -->
                     <h4>遇到问题请咨询：{$config['serviceQq']}</h4>
 
                 </div>
