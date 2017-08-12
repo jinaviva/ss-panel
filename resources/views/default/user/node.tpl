@@ -42,7 +42,7 @@
                     </tr>
                     {foreach $nodes as $node}
                     <tr>
-                        <td><a href="./node/{$node->id}">==>点此查看二维码 {$node->name}</a></td>
+                        <td><a href="./node/{$node->id}">{$node->name}==>查看二维码</a></td>
                         <td>{$node->info}</td>
                         <td>
                         {if $user->enable != "正常"}
