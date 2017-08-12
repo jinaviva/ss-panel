@@ -312,7 +312,7 @@ class UserController extends BaseController
             return $this->echoJson($response, $res);
         }
         $res['ret'] = 1;
-        $res['msg'] = "充值成功";
+        $res['msg'] = "充值成功！如果账户已停用，请耐心等待3-5分钟系统自动开通线路。";
         //$c->delete();
         return $this->echoJson($response, $res);
     }
