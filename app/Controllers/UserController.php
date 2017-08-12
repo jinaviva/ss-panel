@@ -62,7 +62,7 @@ class UserController extends BaseController
             return;
         }
         if ($this->user->enable <> "正常") {
-            echo(" <h2 style = "color:red;">账户已到期，请续费</h2>");
+            echo("账户已到期，请续费");
             return;
         }
         $ary['server'] = $node->server;
