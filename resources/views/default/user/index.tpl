@@ -27,7 +27,7 @@
                         <dl class="dl-horizontal">
                             <dt>账户状态</dt>
                             <dd>
-                            {if { $user->enable} != "正常" }
+                            {if $user->enable != "正常" }
                             <span style="color:red;">{$user->enable}</span>
                             {else}
                             {$user->enable}
@@ -35,7 +35,7 @@
                             </dd>
                             <dt>账户剩余时间</dt>
                             <dd>
-                            {if { $user->getRemainingDays()} > 0 }
+                            {if $user->getRemainingDays() > 0 }
                             {$user->getRemainingDays()}天
                             {else}
                              <span style="color:red;">{$user->getRemainingDays()}天</span>
