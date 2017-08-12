@@ -17,6 +17,32 @@
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
+                        <i class="fa  fa-paper-plane"></i>
+
+                        <h3 class="box-title">账户信息</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <dl class="dl-horizontal">
+                            <dt>账户状态</dt>
+                            <dd>{$user->enable}</dd>
+                            <dt>账户剩余时间</dt>
+                            <dd>{$user->getRemainingDays()}天</dd>
+                            <dt>ss线路列表</dt>
+                            <dd><a href="/user/node">==>点此查看节点列表</a></dd>
+                            <dt>使用方法</dt>
+                            <dd>请阅读【配置手册】</dd>
+                            <dt>上次使用</dt>
+                            <dd>{$user->lastSsTime()}</dd>
+                        </dl>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
                         <i class="fa fa-bullhorn"></i>
 
                         <h3 class="box-title">公告&FAQ</h3>
@@ -95,32 +121,7 @@
             </div>
             <!-- /.col (right) -->
 
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <i class="fa  fa-paper-plane"></i>
-
-                        <h3 class="box-title">个人ss连接信息</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <dl class="dl-horizontal">
-                        
-                            <dt>账户剩余时间</dt>
-                            <dd>{$user->getRemainingDays()}天</dd>
-                            <dt>服务器</dt>
-                            <dd><a href="/user/node">节点列表</a></dd>
-                            <dt>端口</dt>
-                            <dd>{$user->port}</dd>
-                            <dt>密码（可修改）</dt>
-                            <dd>{$user->passwd}</dd>
-                            <dt>上次使用</dt>
-                            <dd>{$user->lastSsTime()}</dd>
-                        </dl>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
+            
                 <div class="box box-solid">
                     <div class="box-header">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
