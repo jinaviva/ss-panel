@@ -7,6 +7,7 @@ use App\Models\InviteCode;
 use App\Models\Node;
 use App\Models\TrafficLog;
 use App\Models\ChargeCode;
+use APP\Models\User;
 use App\Services\Auth;
 use App\Services\Config;
 use App\Services\DbConfig;
@@ -320,4 +321,102 @@ class UserController extends BaseController
         //$c->delete();
         return $this->echoJson($response, $res);
     }
+    
+    public function pay($request, $response, $args)
+    {
+        $user = Auth::getUser();
+        $ary = $request->getQueryParams();
+        $t = "";
+        if (isset($ary['t'])) {
+            $t = Tools::checkHtml($ary['t']);
+        }
+        $codepay_config = Config::getCodepayConfig();
+        $codepay_id = $codepay_config['codepay_id']; //支付ID
+        $codepay_token = $codepay_config['codepay_token'];
+        #$codepay_key = $codepay_config['codepay_key']; //通讯密钥
+ 
+        $pay_id = $user->id;
+        $price = 15;
+        switch ($t)
+        {
+            case "m":
+                $price = 15;
+                break;
+            case "s":
+                $price = 45;
+                break;
+            case "y":
+                $price = 158;
+                break;
+            default:
+                $price=15;
+        }
+        $pay_url = "http://codepay.fateqq.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1";
+        $pay_info['email'] = $user->email;
+        $pay_info['price'] = $price;
+        return $this->view()->assign('pay_url', $pay_url)->assign('pay_info', $pay_info)->display('user/pay.tpl');
+    }
+    
+    public function handlePayNotify($request, $response, $args){
+        ksort($_POST); //排序post参数
+        reset($_POST); //内部指针指向数组中的第一个元素
+        $sign = '';
+        $codepay_config = Config::getCodepayConfig();
+        $codepay_key = $codepay_config['codepay_key']; //通讯密钥
+        foreach ($_POST AS $key => $val) {
+            if ($val == '') continue; //跳过空值
+            if ($key != 'sign') { //跳过sign
+                $sign .= "$key=$val&"; //拼接为url参数形式
+            }
+        }
+        if (!$_POST['pay_no']||md5(substr($sign, 0, -1) .  $codepay_key) != $_POST['sign']) { //KEY密钥为你的密钥
+            //不合法的数据 不做处理
+            exit('fail');
+        }else{ //合法的数据
+            //业务处理
+            // $_POST['pay_id'] 这是付款人的唯一身份标识或订单ID
+            // $_POST['pay_no'] 这是流水号 没有则表示没有付款成功 流水号不同则为不同订单
+            // $_POST['money'] 这是付款金额
+            //  $_POST['param'] 这是自定义的参数
+            $user_id = $_POST['pay_id'];
+            $money = $_POST['money'];
+            $user = User::where('id', $user_id)->first();
+            
+            $charge_time = 30;
+            if($money >= 15 && $money <= 16)
+            {
+                $charge_time = 30;
+            }
+            elseif($money >= 45 && $money <= 46)
+            {
+                $charge_time = 90;
+            }
+            elseif($money >= 158 && $money <= 159)
+            {
+                $charge_time = 365;
+            }
+            $user_exp_time = $user->expire_time;
+            if ($user_exp_time >= time()) {
+                $user->expire_time += $charge_time * 86400;
+            }
+            else {
+                $user->expire_time = time() + $charge_time * 86400;
+            }
+            $user->enable = 1;
+            
+            try
+            {
+                DB::beginTransaction();
+                $user->save();
+                DB::commit();
+            }
+            catch (\Exception $e)
+            {
+                DB::rollBack();
+                exit('fail');
+            }
+            exit('success');
+        }
+    }
+    
 }

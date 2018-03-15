@@ -45,7 +45,7 @@
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <button type="submit" id="charge" class="btn btn-primary">充值</button>
-                        <h4>本站唯一官方充值卡购买地址：<a href="{$config['buyCard']}" target="_blank" class="btn btn-warning btn-sm">充值码购买</a></h4>
+                        <!-- <h4>本站唯一官方充值卡购买地址：<a href="{$config['buyCard']}" target="_blank" class="btn btn-warning btn-sm"> 充值码购买</a></h4>-->
                     </div>
 
                 </div>

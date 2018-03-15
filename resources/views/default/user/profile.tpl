@@ -36,7 +36,23 @@
                     </div>
                     <div class="box-footer">
                         <!-- <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a> -->
-                        <a class="btn btn-primary btn-lg" href="charge">为该账户充值</a>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a class="btn btn-primary btn" href="pay?t=m" target="_blank">续费1月（30天，15元）</a>
+                                <span class="badge pull-right">支付宝</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="btn btn-primary btn" href="pay?t=s" target="_blank">续费1季度（90天，45元）</a>
+                                <span class="badge pull-right">支付宝</span>
+                            </li>
+                             <li class="list-group-item">
+                                <a class="btn btn-primary btn" href="pay?t=y" target="_blank">续费1年（365天，158元）</a>
+                                <span class="badge pull-right">支付宝</span>
+                            </li>
+                             <li class="list-group-item">
+                                <a class="btn btn-primary btn-warning" href="charge">原有充值码续费通道</a>
+                            </li>
+                        </ul>
                     </div>
                     <!-- /.box -->
                 </div>

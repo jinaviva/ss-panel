@@ -3,3 +3,6 @@
 vendor/
 composer.phar
 .user.ini
+.buildpath
+.project
+.settings/

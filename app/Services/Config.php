@@ -62,7 +62,16 @@ class Config extends PongtanConfig
             'prefix' => self::get('db_prefix')
         ];
     }
-
+    
+    public static function getCodepayConfig()  //读取码支付配置
+    {
+        return [
+            'codepay_id' => self::get('codepay_id'),
+            'codepay_token' => self::get('codepay_token'),
+            'codepay_key' => self::get('codepay_key')
+        ];
+    }
+    
     public static function getStoragePath($dir)
     {
         return BASE_PATH . '/storage/' . $dir;

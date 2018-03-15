@@ -33,6 +33,7 @@ $app->add(new WhoopsMiddleware);
 // Home
 $app->get('/', 'App\Controllers\HomeController:index')->add(new Guest());
 $app->get('/r', 'App\Controllers\AuthController:register')->add(new Guest());
+$app->post('/thepaynotify', 'App\Controllers\UserController:handlePayNotify')->add(new Guest());
 //$app->get('/code', 'App\Controllers\HomeController:code');
 //$app->get('/tos', 'App\Controllers\HomeController:tos');
 //$app->get('/debug', 'App\Controllers\HomeController:debug');
@@ -59,6 +60,7 @@ $app->group('/user', function () {
     $this->get('/logout', 'App\Controllers\UserController:logout');
     $this->get('/charge', 'App\Controllers\UserController:charge');
     $this->post('/charge', 'App\Controllers\UserController:handleCharge');
+    $this->get('/pay', 'App\Controllers\UserController:pay');
 })->add(new Auth());
 
 // Auth
