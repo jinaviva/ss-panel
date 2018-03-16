@@ -36,9 +36,9 @@
                             <dt>账户剩余时间</dt>
                             <dd>
                             {if $user->getRemainingDays() > 0 }
-                            {$user->getRemainingDays()}天
+                            {$user->getRemainingDays()}天<a href="/user/profile" style="padding-left: 15px;">==>点此充值</a>
                             {else}
-                             <span style="color:red;">{$user->getRemainingDays()}天</span>
+                             <span style="color:red;">{$user->getRemainingDays()}天</span><a href="/user/profile" style="padding-left: 15px;">==>点此充值</a>
                             {/if}
                             </dd>
                             <dt>ss线路列表</dt>
