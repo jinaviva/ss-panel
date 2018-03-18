@@ -7,6 +7,7 @@ use App\Models\InviteCode;
 use App\Models\Node;
 use App\Models\TrafficLog;
 use App\Models\ChargeCode;
+use App\Models\PayLog;
 use APP\Models\User;
 use App\Services\Auth;
 use App\Services\Config;
@@ -14,6 +15,7 @@ use App\Services\DbConfig;
 use App\Utils\Hash;
 use App\Utils\Tools;
 use Illuminate\Database\Capsule\Manager as DB;
+use Illuminate\Database\Eloquent\Model;
 
 
 /**
@@ -333,6 +335,7 @@ class UserController extends BaseController
         $codepay_config = Config::getCodepayConfig();
         $codepay_id = $codepay_config['codepay_id']; //支付ID
         $codepay_token = $codepay_config['codepay_token'];
+        $codepay_notify_url = $codepay_config['codepay_notify_url'];
         #$codepay_key = $codepay_config['codepay_key']; //通讯密钥
  
         $pay_id = $user->id;
@@ -352,6 +355,9 @@ class UserController extends BaseController
                 $price=15;
         }
         $pay_url = "http://codepay.fateqq.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1";
+        if($codepay_notify_url != ''){
+            $pay_url = "http://codepay.fateqq.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1&notify_url=".$codepay_notify_url;
+        }
         $pay_info['email'] = $user->email;
         $pay_info['price'] = $price;
         return $this->view()->assign('pay_url', $pay_url)->assign('pay_info', $pay_info)->display('user/pay.tpl');
@@ -404,10 +410,22 @@ class UserController extends BaseController
             }
             $user->enable = 1;
             
+            $paylog = new PayLog();
+            $paylog->pay_no = $_POST['pay_no'];
+            $paylog->pay_id = $user_id;
+            $paylog->price = $_POST['price'];
+            $paylog->money = $_POST['money'];
+            $paylog->pay_business_type = 'codepay';
+            $paylog->type = $_POST['type'];
+            $paylog->param = $_POST['param'];
+            $paylog->pay_time = $_POST['pay_time'];
+            $paylog->pay_tag = $_POST['pay_tag'];
+            
             try
             {
                 DB::beginTransaction();
                 $user->save();
+                $paylog->save();
                 DB::commit();
             }
             catch (\Exception $e)

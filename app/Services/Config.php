@@ -68,7 +68,8 @@ class Config extends PongtanConfig
         return [
             'codepay_id' => self::get('codepay_id'),
             'codepay_token' => self::get('codepay_token'),
-            'codepay_key' => self::get('codepay_key')
+            'codepay_key' => self::get('codepay_key'),
+            'codepay_notify_url' => self::get('codepay_notify_url')
         ];
     }
     
