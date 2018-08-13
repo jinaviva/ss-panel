@@ -61,7 +61,12 @@ $app->group('/user', function () {
     $this->get('/charge', 'App\Controllers\UserController:charge');
     $this->post('/charge', 'App\Controllers\UserController:handleCharge');
     $this->get('/pay', 'App\Controllers\UserController:pay');
+    $this->get('/getlink', 'App\Controllers\UserController:getlink');
 })->add(new Auth());
+
+$app->group('/s', function () {
+    $this->get('/{token}', 'App\Controllers\LinkController:GetContent');
+});
 
 // Auth
 $app->group('/auth', function () {
@@ -140,9 +145,10 @@ $app->group('/mu', function () {
 $app->group('/mu/v2', function () {
     $this->get('/users', 'App\Controllers\MuV2\UserController:index');
     $this->post('/users/{id}/traffic', 'App\Controllers\MuV2\UserController:addTraffic');
-    $this->get('/nodes/{id}/users', 'App\Controllers\MuV2\NodeController:users');
     $this->post('/nodes/{id}/online_count', 'App\Controllers\MuV2\NodeController:onlineUserLog');
     $this->post('/nodes/{id}/info', 'App\Controllers\MuV2\NodeController:info');
+    $this->get('/nodes/{id}/users', 'App\Controllers\MuV2\NodeController:users');
+    $this->get('/nodes/{id}/v2rayUsers', 'App\Controllers\MuV2\NodeController:v2rayUsers');
     $this->post('/nodes/{id}/traffic', 'App\Controllers\MuV2\NodeController:postTraffic');
 })->add(new Mu());
 

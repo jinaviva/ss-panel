@@ -45,7 +45,13 @@ class UserController extends BaseController
         }
         return $this->view()->assign('msg', $msg)->display('user/index.tpl');
     }
-
+    
+    public function getlink($request, $response, $args)
+    {
+        $ssr_sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
+        echo $ssr_sub_token;
+    }
+    
     public function node($request, $response, $args)
     {
         $msg = DbConfig::get('user-node');

@@ -18,8 +18,7 @@ class UserController extends BaseController
     {
         $users = User::all();
         $res = [
-            "msg" => "ok",
-            "data" => $users
+            'data' => $users
         ];
         return $this->echoJson($response, $res);
     }
