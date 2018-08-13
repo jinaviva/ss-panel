@@ -49,6 +49,7 @@ class User extends Model
     //如果今后修改该方法的返回值时要特别注意:
     // resources/views/default/user/node.tpl 和 Controllers/UserController.php:nodeInfo 
     // resources/views/default/user/index.tpl 3处有判断，对应也要修改
+    /*
     public function getEnableAttribute($value)
     {
         if ($value == 0) {
@@ -58,6 +59,7 @@ class User extends Model
             return "正常";
         }
     }
+    */
     
     public function isAdmin()
     {
