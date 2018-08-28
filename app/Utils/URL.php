@@ -231,7 +231,7 @@ class URL
             $return_url .= URL::getItemUrl($item, $is_ss).($enter == 0 ? ' ' : "\n");
         }
         //var_dump($items);
-        //is_ss始终为否，enter始终使用空格分割
+        //is_ss始终为否，enter1 使用换行分割，enter0 使用空格分割
         return $return_url;
     }
     public static function getItemUrl($item, $is_ss) {
@@ -374,3 +374,4 @@ class URL
         return $new_user;
     }
 }
+

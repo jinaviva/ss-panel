@@ -66,6 +66,7 @@ $app->group('/user', function () {
 
 $app->group('/s', function () {
     $this->get('/{token}', 'App\Controllers\LinkController:GetContent');
+    $this->get('/{token}/{type}', 'App\Controllers\LinkController:GetContent');
 });
 
 // Auth

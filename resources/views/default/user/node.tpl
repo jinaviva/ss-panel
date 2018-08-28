@@ -26,28 +26,51 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                 <h3 class="box-title">线路列表</h3>
+                 <h3 class="box-title"> SS线路列表</h3>
             </div>
             <div class="box-body table-responsive no-padding">
+             <!--
+             <table class="table table-hover">        
+             	<tr>
+             	<th>
+             	<form class="bs-example bs-example-form" role="form">
+				<div class="input-group input-group">
+					<span class="input-group-addon" style="color:red">SS线路订阅地址：</span>
+					<input type="text" class="form-control" readonly placeholder="订阅地址" value="{$ssr_sub}">
+					
+					<span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">点击复制</button>
+                    </span>
+                    
+				</div>
+				</form>
+             	</th>
+             	</tr>
+                </table>
+                -->
                 <table class="table table-hover">
                     <tr>
                         <th>节点位置</th>
-                        <th>账号和二维码</th>
+                        
                         <th>节点信息</th>
                         <th>服务器地址</th>
                         <th>端口</th>
                         <th>密码<a href="/user/edit">（修改）</a></th>
                         <th>加密方式</th>
                         <th>流量比例</th>
+                        <th>账号和二维码</th>
 
                     </tr>
                     {foreach $nodes as $node}
+                    {if $node->sort != 0}
+                    {continue}
+                    {/if}
                     <tr>
                         <td><a href="./node/{$node->id}">{$node->name}</a></td>
-                        <td><a href="./node/{$node->id}" type="button" class="btn btn-primary btn-sm">点此查看二维码<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> </a> </td>
+                        
                         <td>{$node->info}</td>
                         <td>
-                        {if $user->enable != "正常"}
+                        {if $user->enable != 1}
                         <span style = "color:red;">账户已到期，请续费</span>
                         {else}
                         {$node->server}
@@ -57,6 +80,68 @@
                         <td>{$user->passwd}</td>
                         <td>{$node->method}</td>
                         <td><span class="label label-info">{$node->traffic_rate}</span></td>
+                        <td><a href="./node/{$node->id}" type="button" class="btn btn-primary btn-sm">点此查看<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> </a> </td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </div>
+        </div>
+        
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                 <h3 class="box-title"> V 线路列表（测试）</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                <tr>
+             	<th>
+             	<form class="bs-example bs-example-form" role="form">
+				<div class="input-group input-group">
+					<span class="input-group-addon" style="color:red">V线路订阅地址：</span>
+					<input type="text" class="form-control" readonly placeholder="订阅地址" value="{$v_sub}">
+					<!--
+					<span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">点击复制</button>
+                    </span>
+                    -->
+				</div>
+				</form>
+             	</th>
+             	</tr>
+               <!--
+                <tr>
+                <th>
+                <form class="form-horizontal" role="form">
+				  <div class="form-group">
+				    <label for="name" class="col-sm-2  control-label">V线路订阅地址:</label>
+				    <div class="col-sm-8">
+				    <input type="text" class="form-control" readonly placeholder="">
+				    </div>
+				  </div>
+				  </form>
+				 </th>
+				 </tr>
+       -->
+                </table>
+                <table class="table table-hover">
+                    <tr>
+                        <th>节点位置</th>
+                        <th>节点信息</th>
+                        <th>状态</th>
+                        <th>流量比例</th>
+                        <th>节点详情</th>
+                    </tr>
+                    {foreach $nodes as $node}
+                    {if $node->sort != 11}
+                    {continue}
+                    {/if}
+                    <tr>
+                        <td><a href="./node/{$node->id}">{$node->name}</a></td>
+                        <td>{$node->info}</td>
+                        <td>{$node->status}</td>
+                        <td><span class="label label-info">{$node->traffic_rate}</span></td>
+                        <td><a href="./node/{$node->id}" type="button" class="btn btn-primary btn-sm">点此查看<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> </a> </td>
                     </tr>
                     {/foreach}
                 </table>

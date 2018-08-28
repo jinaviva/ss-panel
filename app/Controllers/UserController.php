@@ -16,6 +16,7 @@ use App\Utils\Hash;
 use App\Utils\Tools;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Utils\V2URL;
 
 
 /**
@@ -43,11 +44,26 @@ class UserController extends BaseController
         if ($msg == null) {
             $msg = "在后台修改用户中心公告...";
         }
+        //检查用户的uuid，如果没有，则创建。
+        if ($this->user->v2ray_uuid == '') {
+            $this->user->v2ray_uuid = Tools::genUUID();
+            $this->user->save();
+        }
         return $this->view()->assign('msg', $msg)->display('user/index.tpl');
     }
     
     public function getlink($request, $response, $args)
     {
+        /*
+        $type = "ss";
+        if (isset($request->getQueryParams()["t"])) {
+            $type = $request->getQueryParams()["t"];
+        }
+        if ($type == "v") {
+            $v2ray_sub_token = LinkController::GenerateV2raySubCode($this->user->id, 0);
+            echo $v2ray_sub_token;
+            return;
+        } */
         $ssr_sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
         echo $ssr_sub_token;
     }
@@ -56,8 +72,12 @@ class UserController extends BaseController
     {
         $msg = DbConfig::get('user-node');
         $user = Auth::getUser();
-        $nodes = Node::where([['type', '=', 1], ['node_group', '=', $user->node_group]])->orderBy('sort')->get();
-        return $this->view()->assign('nodes', $nodes)->assign('user', $user)->assign('msg', $msg)->display('user/node.tpl');
+        $nodes = Node::where([['type', '=', 1], ['node_group', '=', $user->node_group]])->orderBy('name')->get();
+        $sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
+        $sub_url = "http://localhost/s/";
+        $ssr_sub = $sub_url.$sub_token."";
+        $v_sub = $sub_url.$sub_token."/v";
+        return $this->view()->assign('nodes', $nodes)->assign('ssr_sub', $ssr_sub)->assign('v_sub', $v_sub)->assign('user', $user)->assign('msg', $msg)->display('user/node.tpl');
     }
 
 
@@ -70,9 +90,14 @@ class UserController extends BaseController
             echo("请求错误");
             return;
         }
-        if ($this->user->enable <> "正常") {
+        if ($this->user->enable <> 1) {
             echo("账户已到期，请续费");
             return;
+        }
+        if ($node->sort == 11) {
+            $v2url = "";
+            $v2url = V2URL::getItemUrl(V2URL::getItem($this->user, $node));
+            return $this->view()->assign('v2url', $v2url)->assign('node', $node)->display('user/nodeinfo_v2ray.tpl');
         }
         $ary['server'] = $node->server;
         $ary['server_port'] = $this->user->port;

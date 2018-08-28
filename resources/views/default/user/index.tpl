@@ -27,11 +27,9 @@
                         <dl class="dl-horizontal">
                             <dt>账户状态</dt>
                             <dd>
-                            {if $user->enable != "正常" }
-                            <span style="color:red;">{$user->enable}</span>
-                            {else}
-                            {$user->enable}
-                            {/if}
+                            {if $user->enable != 1 }
+                            <span style="color:red;">已停用</span>
+                            {else}正常{/if}
                             </dd>
                             <dt>账户剩余时间</dt>
                             <dd>

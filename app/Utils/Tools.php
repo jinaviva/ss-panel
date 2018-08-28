@@ -77,6 +77,28 @@ class Tools
         }
         return $char;
     }
+    
+    public static function genRandomChar_Link($length = 8)
+    {
+        // 密码字符集，可任意添加你需要的字符
+        $chars = 'abcdefghijkmnpqrstuvwxyz23456789';
+        $char = '';
+        for ($i = 0; $i < $length; $i++) {
+            $char .= $chars[mt_rand(0, strlen($chars) - 1)];
+        }
+        return $char;
+    }
+       
+    public static function genUuidRandomChar($length = 8)
+    {
+        // 密码字符集，可任意添加你需要的字符
+        $chars = 'abcdef0123456789';
+        $char = '';
+        for ($i = 0; $i < $length; $i++) {
+            $char .= $chars[mt_rand(0, strlen($chars) - 1)];
+        }
+        return $char;
+    }
 
     /**
      * @return string
@@ -178,6 +200,16 @@ class Tools
         $unid = uniqid(Config::get('key'));
         return Hash::sha256WithSalt($unid);
     }
+    
+    public static function genMyUUID()
+    {
+        $part1 = self::genUuidRandomChar(8);
+        $part2 = self::genUuidRandomChar(4);
+        $part3 = self::genUuidRandomChar(4);
+        $part4 = self::genUuidRandomChar(4);
+        $part5 = self::genUuidRandomChar(12); 
+        return $part1.'-'.$part2.'-'.$part3.'-'.$part4.'-'.$part5;
+    }
 
     /**
      * @return string
@@ -188,9 +220,9 @@ class Tools
             $uuid4 = Uuid::uuid4();
             return $uuid4->toString();
         } catch (UnsatisfiedDependencyException $e) {
-            return self::genSID();
+            return self::genMyUUID();
         } catch (\Exception $e) {
-            return self::genSID();
+            return self::genMyUUID();
         }
     }
 

@@ -201,6 +201,10 @@ class AuthController extends BaseController
         $user->ref_by = 1;//$c->user_id;
         $user->node_group = $np_id;
         $user->expire_time = time() + $charge_code->charge_time * 86400;
+        $user->v2ray_uuid = Tools::genUUID();
+        $user->v2ray_alter_id = 2;
+        $user->v2ray_level = 2;
+        
         
         $charge_code->used = 1;
         $charge_code->used_user_email = $email;
