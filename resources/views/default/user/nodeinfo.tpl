@@ -98,7 +98,7 @@
                 <div class="box box-solid">
                     <div class="box-header">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                        <h3 class="box-title">配置手册</h3>
+                        <h3 class="box-title">SS线路配置手册</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

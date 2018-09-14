@@ -73,12 +73,13 @@ class UserController extends BaseController
         $msg = DbConfig::get('user-node');
         $user = Auth::getUser();
         $nodes = Node::where([['type', '=', 1], ['node_group', '=', $user->node_group]])->orderBy('name')->get();
+        $v_nodes_count = Node::where([['type', '=', 1], ['sort', '=', 11],['node_group', '=', $user->node_group]])->count();
         $sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
         $public_config = Config::getPublicConfig();
         $sub_url = $public_config['subUrl']."/s/";
         $ssr_sub = $sub_url.$sub_token."";
         $v_sub = $sub_url.$sub_token."/v";
-        return $this->view()->assign('nodes', $nodes)->assign('ssr_sub', $ssr_sub)->assign('v_sub', $v_sub)->assign('user', $user)->assign('msg', $msg)->display('user/node.tpl');
+        return $this->view()->assign('v_nodes_count', $v_nodes_count)->assign('nodes', $nodes)->assign('ssr_sub', $ssr_sub)->assign('v_sub', $v_sub)->assign('user', $user)->assign('msg', $msg)->display('user/node.tpl');
     }
 
 

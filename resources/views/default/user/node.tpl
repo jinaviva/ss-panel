@@ -26,7 +26,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                 <h3 class="box-title"> SS线路列表</h3>
+                 <h3 class="box-title" style="width: 170px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/sstt/sstt.html" target="_blank">配置教程</a> 
             </div>
             <div class="box-body table-responsive no-padding">
              <!--
@@ -87,10 +87,11 @@
             </div>
         </div>
         
+        {if $v_nodes_count > 0}
         <div class="box box-info">
             <div class="box-header with-border">
-                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                 <h3 class="box-title"> V 线路列表（测试）</h3>
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                 <h3 class="box-title" style="width: 170px"> V 线路列表（测试）</h3> <a type="button" class="btn btn-primary" href="/tt" target="_blank">配置教程 </a> 
             </div>
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">
@@ -99,7 +100,7 @@
              	<form class="bs-example bs-example-form" role="form">
 				<div class="input-group input-group">
 					<span class="input-group-addon" style="color:red">V线路订阅地址：</span>
-					<input type="text" class="form-control" readonly placeholder="订阅地址" value="{$v_sub}">
+					<input type="text" class="form-control" placeholder="订阅地址" value="{$v_sub}">
 					<!--
 					<span class="input-group-btn">
                         <button class="btn btn-primary" type="button">点击复制</button>
@@ -147,6 +148,7 @@
                 </table>
             </div>
         </div>
+        {/if}
     </section>
     <!-- /.content -->
 </div><!-- /.content-wrapper -->

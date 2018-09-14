@@ -64,6 +64,13 @@ $app->group('/user', function () {
     $this->get('/getlink', 'App\Controllers\UserController:getlink');
 })->add(new Auth());
 
+// Tutorial
+$app->group('/tt', function () {
+    $this->get('', 'App\Controllers\TtController:index');
+    $this->get('/', 'App\Controllers\TtController:index');
+    $this->get('/vttwin', 'App\Controllers\TtController:vttwin');
+})->add(new Auth());
+
 $app->group('/s', function () {
     $this->get('/{token}', 'App\Controllers\LinkController:GetContent');
     $this->get('/{token}/{type}', 'App\Controllers\LinkController:GetContent');

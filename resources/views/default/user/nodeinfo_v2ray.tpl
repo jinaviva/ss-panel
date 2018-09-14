@@ -129,15 +129,12 @@
                 <div class="box box-solid">
                     <div class="box-header">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                        <h3 class="box-title">配置手册</h3>
+                        <h3 class="box-title">V线路配置手册</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                       <div class="list-group">
-                        <a href="/sstt/windows.html" target="_blank" class="list-group-item">Windows电脑配置手册</a>
-                        <a href="/sstt/osx.html" target="_blank" class="list-group-item">苹果（MAC）电脑配置手册</a>
-                        <a href="/sstt/iphone.html" target="_blank" class="list-group-item">苹果手机（平板）配置手册</a>
-                        <a href="/sstt/android.html" target="_blank" class="list-group-item">安卓手机配置手册</a>
+                        <a href="/tt/vttwin" target="_blank" class="list-group-item">Windows电脑配置手册</a>
                     </div>
                 </div>
                     <!-- /.box-body -->

@@ -34,15 +34,15 @@
                             <dt>账户剩余时间</dt>
                             <dd>
                             {if $user->getRemainingDays() > 0 }
-                            {$user->getRemainingDays()}天<a href="/user/profile" style="padding-left: 15px;">==>点此充值</a>
+                            {$user->getRemainingDays()}天<a href="/user/profile" style="margin-left: 15px;" type="button" class="btn btn-primary btn-xs" >==>点此充值</a>
                             {else}
-                             <span style="color:red;">{$user->getRemainingDays()}天</span><a href="/user/profile" style="padding-left: 15px;">==>点此充值</a>
+                             <span style="color:red;">{$user->getRemainingDays()}天</span><a href="/user/profile" style="margin-left: 15px;" type="button" class="btn btn-primary btn-xs" >==>点此充值</a>
                             {/if}
                             </dd>
-                            <dt>ss线路列表</dt>
-                            <dd><a href="/user/node">==>点此查看节点列表</a></dd>
+                            <dt>线路列表</dt>
+                            <dd><a href="/user/node" type="button" class="btn btn-primary btn-xs">==>点此查看节点列表</a></dd>
                             <dt>使用方法</dt>
-                            <dd>请阅读【配置手册】</dd>
+                            <dd>请查看【节点列表】阅读【配置手册】</dd>
                             <dt>上次使用</dt>
                             <dd>{$user->lastSsTime()}</dd>
                         </dl>
@@ -66,6 +66,8 @@
                 </div>
                 <!-- /.box -->
             </div>
+
+
             <!-- /.col (right) -->
             </div>
             <div class="row">
@@ -106,28 +108,6 @@
             </div>
             <!-- /.col (left) -->
             <div class="col-md-6">
-                <div class="box box-solid" style="height:260px">
-                    <div class="box-header">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                        <h3 class="box-title">配置手册</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <div class="list-group">
-                        <a href="/sstt/windows.html" target="_blank" class="list-group-item">Windows电脑配置手册</a>
-                        <a href="/sstt/osx.html" target="_blank" class="list-group-item">苹果（MAC）电脑配置手册</a>
-                        <a href="/sstt/iphone.html" target="_blank" class="list-group-item">苹果手机（平板）配置手册</a>
-                        <a href="/sstt/android.html" target="_blank" class="list-group-item">安卓手机配置手册</a>
-                    </div>
-                </div>
-                    <!-- /.box-body -->
-                </div>
-            </div>
-            <!-- /.col (right) -->
-            </div>
-            
-            <div class="row">
-            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
                         <i class="fa fa-pencil"></i>
@@ -152,6 +132,29 @@
                 </div>
                 <!-- /.box -->
             </div>
+            
+            <!-- /.col (right) -->
+            </div>
+            
+            <div class="row">
+            <!--
+            <div class="col-md-6">
+                <div class="box box-solid" style="height:260px">
+                    <div class="box-header">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                        <h3 class="box-title">配置手册</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="list-group">
+                        <a href="/sstt/windows.html" target="_blank" class="list-group-item">Windows电脑配置手册</a>
+                        <a href="/sstt/osx.html" target="_blank" class="list-group-item">苹果（MAC）电脑配置手册</a>
+                        <a href="/sstt/iphone.html" target="_blank" class="list-group-item">苹果手机（平板）配置手册</a>
+                        <a href="/sstt/android.html" target="_blank" class="list-group-item">安卓手机配置手册</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            --> 
             <!-- /.col (right) -->
 
             
