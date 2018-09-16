@@ -31,6 +31,8 @@ class XCat
                 return $this->createAdmin();
             case("resetTraffic"):
                 return $this->resetTraffic();
+            case("fixV2rayUUID"):
+                return $this->fixV2rayUUID();
             case("sendDiaryMail"):
                 return DailyMail::sendDailyMail();
             default:
@@ -77,6 +79,10 @@ class XCat
             $user->invite_num = Config::get('inviteNum');
             $user->ref_by = 0;
             $user->is_admin = 1;
+            $user->node_group = 1;
+            $user->v2ray_uuid = Tools::genUUID();
+            $user->v2ray_alter_id = 2;
+            $user->v2ray_level = 2;
             if ($user->save()) {
                 echo "Successful/添加成功!";
                 return true;
@@ -101,4 +107,56 @@ class XCat
         }
         return "reset traffic successful";
     }
+    
+    public function fixV2rayUUID()
+    {
+        try {
+            User::chunk(200, function($users)
+            {
+                foreach ($users as $user)
+                {
+                    echo $user->email . " | ". $user->v2ray_uuid . "\r\n";
+                    if ($user->v2ray_uuid == '') 
+                    {
+                        $this_uuid =  Tools::genUUID();
+                        $i = 0;
+                        while (User::where('v2ray_uuid', '=', $this_uuid)->count() > 0 )
+                        {
+                            if ($i > 10 ){
+                                $this_uuid = '';
+                                echo "couldn't alloc v2ray uuid";
+                                break;
+                            }
+                            $this_uuid = Tools::genUUID();
+                            $i++;
+                        }
+                        $user->v2ray_uuid = $this_uuid;
+                        $user->save();
+                    }
+                    else 
+                    {
+                        $this_uuid = $user->v2ray_uuid;
+                        $i = 0;
+                        while (User::where('v2ray_uuid', '=', $this_uuid)->count() > 1 )
+                        {
+                            if ($i > 10 ){
+                                $this_uuid = '';
+                                echo "couldn't alloc v2ray uuid";
+                                break;
+                            }
+                            $this_uuid = Tools::genUUID();
+                            $i++;
+                        }
+                        $user->v2ray_uuid = $this_uuid;
+                        $user->save();
+                    }
+                }
+            });
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+        echo "fix v2ray UUID successful";
+    }
+    
 }

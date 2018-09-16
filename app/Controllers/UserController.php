@@ -45,9 +45,20 @@ class UserController extends BaseController
             $msg = "在后台修改用户中心公告...";
         }
         //检查用户的uuid，如果没有，则创建。
-        if ($this->user->v2ray_uuid == '') {
-            $this->user->v2ray_uuid = Tools::genUUID();
-            $this->user->save();
+        if ($this->user->v2ray_uuid == '') {           
+            $this_uuid =  Tools::genUUID();
+            $i = 0;
+            while (User::where('v2ray_uuid', '=', $this_uuid)->count() > 0 )
+            {
+                if ($i > 10 ){
+                    $this_uuid = '';
+                    break;
+                }
+                $this_uuid = Tools::genUUID();
+                $i++;
+            }
+            $this->user->v2ray_uuid = $this_uuid;
+            $this->user->save();           
         }
         return $this->view()->assign('msg', $msg)->display('user/index.tpl');
     }
