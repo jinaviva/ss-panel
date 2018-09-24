@@ -27,10 +27,10 @@
                             <dd>{$user->email}</dd>
                             <dt>账户状态</dt>
                             <dd>
-                                {if $user->enable != "正常" }
-                                    <span style="color:red;">{$user->enable}</span>
+                                {if $user->enable != 1 }
+                                    <span style="color:red;">已停用</span>
                                 {else}
-                                    {$user->enable}
+                                	正常
                                 {/if}
                             </dd>
                             <dt>账户剩余时间</dt>

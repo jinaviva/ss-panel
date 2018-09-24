@@ -9,6 +9,7 @@ namespace App\Command;
 
 use App\Models\User;
 use App\Services\Config;
+use App\Services\Logger;
 use App\Utils\Hash;
 use App\Utils\Tools;
 
@@ -21,7 +22,7 @@ class XCat
     {
         $this->argv = $argv;
     }
-
+    
     public function boot()
     {
         switch ($this->argv[1]) {
@@ -33,6 +34,8 @@ class XCat
                 return $this->resetTraffic();
             case("fixV2rayUUID"):
                 return $this->fixV2rayUUID();
+            case("cleanExpiredUser"):
+                return $this->cleanExpiredUser();
             case("sendDiaryMail"):
                 return DailyMail::sendDailyMail();
             default:
@@ -97,15 +100,17 @@ class XCat
     public function resetTraffic()
     {
         try {
-            User::where("enable", 1)->update([
+            $affectRow = User::where("enable", 1)->update([
                 'd' => 0,
                 'u' => 0,
+                'transfer_enable' => 107374182400
             ]);
+            Logger::newDbLog('resetTraffic', $affectRow.'Accounts traffic reset!');
         } catch (\Exception $e) {
             echo $e->getMessage();
             return false;
         }
-        return "reset traffic successful";
+        echo "reset traffic successful!".$affectRow."accounts traffic has been reset!";
     }
     
     public function fixV2rayUUID()
@@ -157,6 +162,20 @@ class XCat
             return false;
         }
         echo "fix v2ray UUID successful";
+    }
+    
+    public function cleanExpiredUser()
+    {
+        try 
+        {
+            $affectRow = User::where('enable', '<>', '0')->where('expire_time', '<', time())->update(['enable' => '0']);
+            Logger::newDbLog('cleanUser', $affectRow.'Accounts disabled!');
+            
+        }catch (\Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+        echo "clean expired user successful!".$affectRow."expired accounts has been disabled!";
     }
     
 }
