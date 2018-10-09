@@ -83,7 +83,7 @@ class UserController extends BaseController
     {
         $msg = DbConfig::get('user-node');
         $user = Auth::getUser();
-        $nodes = Node::where([['type', '=', 1], ['node_group', '=', $user->node_group]])->orderBy('name')->get();
+        $nodes = Node::where([['type', '=', 1], ['node_group', '=', $user->node_group]])->orderBy('display_order')->get();
         $v_nodes_count = Node::where([['type', '=', 1], ['sort', '=', 11],['node_group', '=', $user->node_group]])->count();
         $sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
         $public_config = Config::getPublicConfig();
