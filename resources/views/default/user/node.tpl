@@ -26,28 +26,28 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                 <h3 class="box-title" style="width: 200px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/sstt/sstt.html" target="_blank">配置教程</a> 
+                 <h3 class="box-title" style="width: 200px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/sstt/sstt.html" target="_blank">SS配置教程</a> 
             </div>
             <div class="box-body table-responsive no-padding">
-             <!--
+             
              <table class="table table-hover">        
              	<tr>
              	<th>
              	<form class="bs-example bs-example-form" role="form">
 				<div class="input-group input-group">
 					<span class="input-group-addon" style="color:red">SS线路订阅地址：</span>
-					<input type="text" class="form-control" readonly placeholder="订阅地址" value="{$ssr_sub}">
-					
+					<input type="text" class="form-control" placeholder="订阅地址" value="{$ssr_sub}">
+					<!--
 					<span class="input-group-btn">
                         <button class="btn btn-primary" type="button">点击复制</button>
                     </span>
-                    
+                    -->
 				</div>
 				</form>
              	</th>
              	</tr>
                 </table>
-                -->
+                
                 <table class="table table-hover">
                     <tr>
                         <th>节点位置</th>
@@ -91,7 +91,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-                 <h3 class="box-title" style="width: 200px"> V 线路列表（备选方案）</h3> <a type="button" class="btn btn-primary" href="/tt" target="_blank">配置教程 </a> 
+                 <h3 class="box-title" style="width: 200px"> V 线路列表（备选方案）</h3> <a type="button" class="btn btn-primary" href="/tt" target="_blank">V配置教程 </a> 
             </div>
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">

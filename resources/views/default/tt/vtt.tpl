@@ -28,7 +28,6 @@
 		<li><a href="/tt/vttandr"><h2>2)安卓使用教程</h2></a></li>
 		<li><a href="/tt/vttios"><h2>3)苹果手机（iphone、ipad）使用教程</h2></a></li>
 		<li><a href="/tt/vttmacos"><h2>4)苹果电脑（MAC）使用教程</h2></a></li>
-
 	</ul>
 </div>
 </body>

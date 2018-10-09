@@ -134,7 +134,10 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                       <div class="list-group">
-                        <a href="/tt/vttwin" target="_blank" class="list-group-item">Windows电脑配置手册</a>
+                        <a href="/tt/vttwin" target="_blank" class="list-group-item">Windows使用教程</a>
+                        <a href="/tt/vttandr" target="_blank" class="list-group-item">安卓使用教程</a>
+                        <a href="/tt/vttios" target="_blank" class="list-group-item">苹果手机（iphone、ipad）使用教程</a>
+                        <a href="/tt/vttmacos" target="_blank" class="list-group-item">苹果电脑（MAC）使用教程</a>
                     </div>
                 </div>
                     <!-- /.box-body -->
