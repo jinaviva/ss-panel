@@ -22,9 +22,13 @@
 </head>
 <body>
 <div>
-	<h1>V节点使用教程（安卓、苹果教程正在更新中……）</h1>
+	<h1>V节点使用教程</h1>
 	<ul>
-		<li><a href="/tt/vttwin"><h2>1)Windows下V客户端使用教程</h2></a></li>
+		<li><a href="/tt/vttwin"><h2>1)Windows使用教程</h2></a></li>
+		<li><a href="/tt/vttandr"><h2>2)安卓使用教程</h2></a></li>
+		<li><a href="/tt/vttios"><h2>3)苹果手机（iphone、ipad）使用教程</h2></a></li>
+		<li><a href="/tt/vttmacos"><h2>4)苹果电脑（MAC）使用教程</h2></a></li>
+
 	</ul>
 </div>
 </body>

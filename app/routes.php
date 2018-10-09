@@ -69,6 +69,9 @@ $app->group('/tt', function () {
     $this->get('', 'App\Controllers\TtController:index');
     $this->get('/', 'App\Controllers\TtController:index');
     $this->get('/vttwin', 'App\Controllers\TtController:vttwin');
+    $this->get('/vttandr', 'App\Controllers\TtController:vttandr');
+    $this->get('/vttios', 'App\Controllers\TtController:vttios');
+    $this->get('/vttmacos', 'App\Controllers\TtController:vttmacos');
 })->add(new Auth());
 
 $app->group('/s', function () {

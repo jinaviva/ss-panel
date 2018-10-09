@@ -26,7 +26,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                 <h3 class="box-title" style="width: 170px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/sstt/sstt.html" target="_blank">配置教程</a> 
+                 <h3 class="box-title" style="width: 200px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/sstt/sstt.html" target="_blank">配置教程</a> 
             </div>
             <div class="box-body table-responsive no-padding">
              <!--
@@ -91,7 +91,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-                 <h3 class="box-title" style="width: 170px"> V 线路列表（测试）</h3> <a type="button" class="btn btn-primary" href="/tt" target="_blank">配置教程 </a> 
+                 <h3 class="box-title" style="width: 200px"> V 线路列表（备选方案）</h3> <a type="button" class="btn btn-primary" href="/tt" target="_blank">配置教程 </a> 
             </div>
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">
