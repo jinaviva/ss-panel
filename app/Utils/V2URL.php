@@ -24,7 +24,7 @@ class V2URL {
                 function ($query) {
                     $query->where('sort', 11);
                 }
-            )->where("type", "1")->orderBy("name")->get();
+            )->where("type", "1")->orderBy("display_order")->get();
             //var_dump($nodes);
         } else {
             $nodes=Node::where(
@@ -36,7 +36,7 @@ class V2URL {
                     $query->where("node_group", "=", $user->node_group)
                     ->orWhere("node_group", "=", 0);
                 }
-            )->where("type", "1")->where("node_class", "<=", $user->class)->orderBy("name")->get();
+            )->where("type", "1")->where("node_class", "<=", $user->class)->orderBy("display_order")->get();
         }
 
         foreach ($nodes as $node) {

@@ -126,7 +126,7 @@ class URL
                     $query->where('sort', 0)
                         ->orwhere('sort', 10);
                 }
-            )->where("type", "1")->orderBy("name")->get();
+            )->where("type", "1")->orderBy("display_order")->get();
             //var_dump($nodes);
         } else {
             $nodes=Node::where(
@@ -139,7 +139,7 @@ class URL
                     $query->where("node_group", "=", $user->node_group)
                         ->orWhere("node_group", "=", 0);
                 }
-            )->where("type", "1")->where("node_class", "<=", $user->class)->orderBy("name")->get();
+            )->where("type", "1")->where("node_class", "<=", $user->class)->orderBy("display_order")->get();
         }
         if($is_mu) {  //如果是单端口
             if ($user->is_admin) {
