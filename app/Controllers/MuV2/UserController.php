@@ -10,13 +10,14 @@ use App\Services\Config;
 use App\Services\Logger;
 use App\Storage\Dynamodb\TrafficLog as DynamoTrafficLog;
 use App\Utils\Tools;
+use App\Utils\EmptyClass;
 
 class UserController extends BaseController
 {
     // User List
     public function index($request, $response, $args)
     {
-        $users = User::all();
+        $users = User::where('enable', '=', '1')->get();
         $res = [
             'data' => $users
         ];
