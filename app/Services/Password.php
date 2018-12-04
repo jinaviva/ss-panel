@@ -27,7 +27,7 @@ class Password
             return false;
         }
         $subject = Config::get('appName') . "重置密码";
-        $resetUrl = Config::get('baseUrl') . "/password/token/" . $pwdRst->token;
+        $resetUrl = Config::get('bakUrl') . "/password/token/" . $pwdRst->token;
         try {
             Mail::send($email, $subject, 'password/reset.tpl', [
                 "resetUrl" => $resetUrl
