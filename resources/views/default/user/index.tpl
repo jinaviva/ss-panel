@@ -9,7 +9,7 @@
             <small>User Center</small>
         </h1>
     </section>
-
+    
     <!-- Main content -->
     <section class="content">
         <!-- START PROGRESS BARS -->
@@ -169,7 +169,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">重要提醒！以下内容请复制存储在电脑其他地方：</h4>
+        <h4 class="modal-title">重要提醒！以下内容请复制下来保存：</h4>
       </div>
       <div class="modal-body">
       {$imp_msg}

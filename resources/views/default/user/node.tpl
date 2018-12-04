@@ -18,7 +18,6 @@
                 <div class="callout callout-info">
                     <h4>注意!</h4>
                     <h5>请勿在任何地方公开节点地址！</h5>
-                    <h5>流量比例为0.5即使用100MB按照50MB流量记录记录结算。</h5>
                     {$msg}
                 </div>
             </div>

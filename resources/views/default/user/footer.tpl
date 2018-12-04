@@ -2,8 +2,8 @@
     <div align="center">
         {$userFooter}
     </div>
-    <div class="pull-right hidden-xs">
-       	<span style="margin-right:10px;color:red;">直接访问地址：<a href="{$config['bakUrl']}"  target="_blank">{$config['bakUrl']}</a> </span><span style="margin-right:10px">|</span><span style="color:red;">永久域名（需代理）：<a href="{$config['baseUrl']}" target="_blank">{$config['baseUrl']}</a></span>    	 
+    <div class="pull-right">
+       	<span style="margin-right:5px;color:red;">新网址：<a href="{$config['bakUrl']}"  target="_blank">{$config['bakUrl']}</a> </span><span style="margin-right:5px">|</span><span style="color:red;">永久网址（需代理）：<a href="{$config['baseUrl']}" target="_blank">{$config['baseUrl']}</a></span>    	 
     </div>
     <strong>Copyright &copy; {date("Y")} <a href="#">{$config['appName']}</a> </strong>
     All rights reserved. | <a href="/tos" target="_blank">服务条款 </a>
