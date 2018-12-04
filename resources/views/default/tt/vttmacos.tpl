@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-ch">
 <head>
-	<title>MAC苹果电脑OSX系统V节点使用教程
+	<title>MAC苹果电脑下V使用教程
 	</title>
 	<meta charset="utf-8">
 	<style type="text/css">
@@ -22,11 +22,11 @@
 </head>
 <body>
 <div>
-<h1>Mac系统V节点使用教程<a href="/tt">返回主页</a></h1>
+<h1>Mac系统V节点使用教程<a href="/tt">返回教程列表</a></h1>
 <h2>一、准备工作</h2>
 <p>1）系统要求Mac OS X 10.11+；</p>
 <p>2）安装V2RayX软件；</p> 
-<p>V2RayX下载：<a href="http://dl1.netxyz.me/dl/v/macos/V2RayX.app.zip">下载链接</a><a href="http://dl3.netxyz.me/dl/v/macos/V2RayX.app.zip">备用下载</a></p>
+<p>V2RayX下载：<a href="{$config['dlUrl1']}/downloads/dl/v/macos/V2RayX.app.zip">下载链接</a><a href="{$config['dlUrl2']}/downloads/dl/v/macos/V2RayX.app.zip">备用下载</a></p>
 <p>3）V节点配置信息。（如何获取？网站管理后台—节点列表—V线路列表—点击您想使用的线路进去，即可查看到V节点配置信息）</p>
 <h2>二、安装配置</h2>
 <p>1）安装V2RayX软件，下图是在最新的mac系统上的全安装过程：</p>

@@ -56,7 +56,8 @@
                     <div class="box-header">
                         <i class="fa fa-bullhorn"></i>
 
-                        <h3 class="box-title">公告&FAQ</h3>
+                        <h3 class="box-title" style="margin-right: 10px;">公告&FAQ</h3>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">查看重要提醒</button>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -163,7 +164,22 @@
     </section>
     <!-- /.content -->
 </div><!-- /.content-wrapper -->
-
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="myModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">重要提醒！以下内容请复制存储在电脑其他地方：</h4>
+      </div>
+      <div class="modal-body">
+      {$imp_msg}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">我知道了</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     $(document).ready(function () {
         $("#checkin").click(function () {
@@ -180,6 +196,10 @@
                 }
             })
         })
+        if($.cookie("isClose") != 'yes'){
+            $('#myModal').modal('show');
+            $.cookie("isClose",'yes',{ expires:1});
+        }
     })
 </script>
 

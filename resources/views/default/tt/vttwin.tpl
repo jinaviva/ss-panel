@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
   <meta charset="utf-8">
-  <title>Windows下 V客户端使用教程</title>
+  <title>Windows系统下V使用教程</title>
   <style type="text/css">
     p,h2{
       
@@ -24,12 +24,12 @@
 </head>
 <body>
 <div id="main">
-  <h1>Windows下V客户端使用教程<a href="/tt">返回主页</a></h1>
+  <h1>Windows下V客户端使用教程<a href="/tt">返回教程列表</a></h1>
   <h3>1、下载V客户端软件。（64位操作系统请下载64位版本，32位操作系统请下载32位版本。） </h3>
-  <p>V客户端软件（64位）：<a href="http://dl1.netxyz.me/dl/v/win/v-2.14-win64.zip">点此下载64位版本</a> <a href="http://dl3.netxyz.me/dl/v/win/v-2.14-win64.zip">备用</a></p>
-  <p>V客户端软件（32位）：<a href="http://dl1.netxyz.me/dl/v/win/v-2.14-win32.zip">点此下载32位版本</a> <a href="http://dl3.netxyz.me/dl/v/win/v-2.14-win32.zip">备用</a></p>
+  <p>V客户端软件（64位）：<a href="{$config['dlUrl1']}/downloads/dl/v/win/v-2.14-win64.zip">点此下载64位版本</a> <a href="{$config['dlUrl2']}/downloads/dl/v/win/v-2.14-win64.zip">备用</a></p>
+  <p>V客户端软件（32位）：<a href="{$config['dlUrl1']}/downloads/dl/v/win/v-2.14-win32.zip">点此下载32位版本</a> <a href="{$config['dlUrl2']}/downloads/dl/v/win/v-2.14-win32.zip">备用</a></p>
   <p class="red">软件运行需系统.net4.5版本以上。如遇软件无法运行？请下载以下升级包安装。安装完后须重启电脑！</p>
-  <p>.net4.62升级包下载:<a href="http://dl1.netxyz.me/dl/win/NDP462-KB3151802-Web.zip" target="_blank">下载1</a><a href="http://dl3.netxyz.me/dl/win/dotNetFx40_Full_x86_x64.zip" target="_blank">下载2</a></p>
+  <p>.net4.62升级包下载:<a href="{$config['dlUrl1']}/downloads/dl/win/NDP462-KB3151802-Web.zip" target="_blank">下载1</a><a href="{$config['dlUrl2']}/downloads/dl/win/NDP462-KB3151802-Web.zip" target="_blank">下载2</a></p>
   <h3 class="red">特别注意：请确保运行V客户端软件的电脑系统时间与北京时间误差不超过2分钟，否则无法正常使用！可百度关键字“北京时间”校对时间。</h3>
   <h3>2、运行V客户端软件。</h3>  
   <p>解压下载好的V客户端软件压缩包，双击<img src="/assets/public/img/tt/v/win/1.png"> 运行V客户端软件。</p>

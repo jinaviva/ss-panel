@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-	<title>iphone苹果V节点使用教程</title>
+	<title>苹果手机(iphone、ipad)V使用教程</title>
 	<meta charset="utf-8">
 	<style type="text/css">
 		p,h2{
@@ -18,12 +18,12 @@
 </head>
 <body>
 <div id="main">
-<h1>iphone苹果下安装使用教程<a href="/tt">返回主页</a></h1>
+<h1>苹果手机(iphone、ipad)V使用教程<a href="/tt">返回教程列表</a></h1>
 <h3>1、准备</h3>
 <p>1）苹果手机系统要求IOS10.0以上；</p>
-<p>2）APP Store美国区Apple ID（可自行注册，也可联系客服提供临时账号。）</p>
+<p>2）APP Store美国区Apple ID（可自行注册，也可发邮件联系客服提供临时账号。）</p>
 <h3>2、下载软件</h3>
-<p>打开美国区APP Store搜索 Kitsunebi Lite ，下载此软件。</p>
+<p>打开美国区APP Store搜索 Kitsunebi Lite ，下载此软件。（注意：也可使用Shadowrocket软件，具体步骤可参考<a href="/tt/ssios" target="_blank">SS教程中shadowrocket软件使用教程</a>）</p>
 <img src="/assets/public/img/tt/v/ios/1.png" width="500px">
 <h3>3、配置使用</h3>
 <p>1）打开 Kitsunebi Lite软件<img src="/assets/public/img/tt/v/ios/2.png" width="50px">，如下图，允许软件添加VPN配置到系统。</p>

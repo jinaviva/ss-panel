@@ -35,7 +35,7 @@ $app->get('/', 'App\Controllers\HomeController:index')->add(new Guest());
 $app->get('/r', 'App\Controllers\AuthController:register')->add(new Guest());
 $app->post('/thepaynotify', 'App\Controllers\UserController:handlePayNotify')->add(new Guest());
 //$app->get('/code', 'App\Controllers\HomeController:code');
-//$app->get('/tos', 'App\Controllers\HomeController:tos');
+$app->get('/tos', 'App\Controllers\HomeController:tos');
 //$app->get('/debug', 'App\Controllers\HomeController:debug');
 //$app->post('/debug', 'App\Controllers\HomeController:postDebug');
 
@@ -72,6 +72,10 @@ $app->group('/tt', function () {
     $this->get('/vttandr', 'App\Controllers\TtController:vttandr');
     $this->get('/vttios', 'App\Controllers\TtController:vttios');
     $this->get('/vttmacos', 'App\Controllers\TtController:vttmacos');
+    $this->get('/sswin', 'App\Controllers\TtController:sswin');
+    $this->get('/ssandr', 'App\Controllers\TtController:ssandr');
+    $this->get('/ssios', 'App\Controllers\TtController:ssios');
+    $this->get('/ssmacos', 'App\Controllers\TtController:ssmacos');
 })->add(new Auth());
 
 $app->group('/s', function () {

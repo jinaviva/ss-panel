@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+{include file='auth/header.tpl'}
 <!-- Begin page content -->
 <div class="section no-pad-bot" id="index-banner">
 <div class="container">
@@ -17,10 +17,9 @@
     <h3>使用条款</h3>
     <p>
         <ul>
-            <li>禁止使用本站服务进行任何违法恶意活动。</li>
-            <li>使用任何节点，需遵循节点所属国家的相关法律以及中国法律。</li>
-            <li>禁止滥用本站提供的服务。</li>
-            <li>对于免费用户，我们有权在不通知的情况下删除账户。</li>
+        	<li>使用本站服务器，需遵循您所属国家的相关法律以及美国法律。</li>
+            <li>禁止滥用本站提供的服务，或使用本站服务进行任何违法恶意活动。</li>
+            <li>我们有权在不通知的情况下删除免费用户账户。</li>
             <li>任何违法使用条款的用户，我们将会删除违规账户并没收使用本站服务的权利。</li>
        </ul>
     </p>
@@ -28,11 +27,9 @@
     <h3>其它</h3>
     <p>
     <ul>
-        <li>本站仅限人类及猫注册使用。</li>
-        <li>TOS更新时用户需要遵守最新TOS。</li>
+        <li>本用户协议更新时用户需要遵守最新用户协议。</li>
     </ul>
     </p>
 
 </div>
 </div>
-{include file='footer.tpl'}

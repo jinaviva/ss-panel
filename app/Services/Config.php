@@ -17,6 +17,9 @@ class Config extends PongtanConfig
             "checkinMin" => self::get("checkinMin"),
             "checkinMax" => self::get("checkinMax"),
             "subUrl" => self::get("subUrl"),
+            "bakUrl" => self::get("bakUrl"),
+            "dlUrl1" => self::get("dlUrl1"),
+            "dlUrl2" => self::get("dlUrl2"),
             "buyCard" => self::getBuyCardAddr(),
             "serviceQq" => self::getServiceQq(),
         ];

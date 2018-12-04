@@ -3,10 +3,10 @@
         {$userFooter}
     </div>
     <div class="pull-right hidden-xs">
-        91xyzss.com
+       	<span style="margin-right:10px;color:red;">直接访问地址：<a href="{$config['bakUrl']}"  target="_blank">{$config['bakUrl']}</a> </span><span style="margin-right:10px">|</span><span style="color:red;">永久域名（需代理）：<a href="{$config['baseUrl']}" target="_blank">{$config['baseUrl']}</a></span>    	 
     </div>
     <strong>Copyright &copy; {date("Y")} <a href="#">{$config['appName']}</a> </strong>
-    All rights reserved. | <a href="/sstt/tos.html" target="_blank">服务条款 </a>
+    All rights reserved. | <a href="/tos" target="_blank">服务条款 </a>
 </footer>
 </div><!-- ./wrapper -->
 

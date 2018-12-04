@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>
-		V节点使用教程
+		SS和V使用教程
 	</title>
 	<style type="text/css">
 		div{
@@ -22,7 +22,15 @@
 </head>
 <body>
 <div>
-	<h1>V节点使用教程</h1>
+	<h1>SS使用教程</h1>
+	<ul>
+		<li><a href="/tt/sswin"><h2>1)Windows使用教程</h2></a></li>
+		<li><a href="/tt/ssandr"><h2>2)安卓使用教程</h2></a></li>
+		<li><a href="/tt/ssios"><h2>3)苹果手机（iphone、ipad）使用教程</h2></a></li>
+		<li><a href="/tt/ssmacos"><h2>4)苹果电脑（MAC）使用教程</h2></a></li>
+	</ul>
+
+	<h1>V使用教程</h1>
 	<ul>
 		<li><a href="/tt/vttwin"><h2>1)Windows使用教程</h2></a></li>
 		<li><a href="/tt/vttandr"><h2>2)安卓使用教程</h2></a></li>

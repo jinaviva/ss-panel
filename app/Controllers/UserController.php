@@ -44,6 +44,10 @@ class UserController extends BaseController
         if ($msg == null) {
             $msg = "在后台修改用户中心公告...";
         }
+        $imp_msg = DbConfig::get('imp-msg');
+        if ($imp_msg == null) {
+            $imp_msg = "在后台添加重要公告...";
+        }
         //检查用户的uuid，如果没有，则创建。
         if ($this->user->v2ray_uuid == '') {           
             $this_uuid =  Tools::genUUID();
@@ -60,7 +64,7 @@ class UserController extends BaseController
             $this->user->v2ray_uuid = $this_uuid;
             $this->user->save();           
         }
-        return $this->view()->assign('msg', $msg)->display('user/index.tpl');
+        return $this->view()->assign('msg', $msg)->assign('imp_msg', $imp_msg)->display('user/index.tpl');
     }
     
     public function getlink($request, $response, $args)

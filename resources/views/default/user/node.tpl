@@ -26,7 +26,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                 <h3 class="box-title" style="width: 200px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/sstt/sstt.html" target="_blank">SS配置教程</a> 
+                 <h3 class="box-title" style="width: 200px"> SS线路列表</h3>  <a type="button" class="btn btn-primary" href="/tt" target="_blank">SS配置教程</a> 
             </div>
             <div class="box-body table-responsive no-padding">
              

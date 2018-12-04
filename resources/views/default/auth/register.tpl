@@ -6,7 +6,7 @@
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">注册，然后开始使用服务器账号……</p>
+        <p class="login-box-msg">注册，然后开始使用服务器账号。</p>
 
         <div class="form-group has-feedback">
             <input type="text" id="name" class="form-control" placeholder="昵称"/>
@@ -45,7 +45,7 @@
         </div>
 
         <div class="form-group has-feedback">
-            <p>注册即代表同意<a href="/sstt/tos.html" target="_blank">服务条款</a> <!-- <a href="{$config['buyCard']}" target="_blank" class="btn btn-info btn-xs" style="float: right;">充值码购买</a> --> </p>
+            <p>注册即代表同意<a href="/tos" target="_blank">服务条款</a> <!-- <a href="{$config['buyCard']}" target="_blank" class="btn btn-info btn-xs" style="float: right;">充值码购买</a> --> </p>
         </div>
 
         <div class="form-group has-feedback">
