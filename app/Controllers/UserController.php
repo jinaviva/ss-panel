@@ -402,9 +402,9 @@ class UserController extends BaseController
             default:
                 $price=15;
         }
-        $pay_url = "http://codepay.fateqq.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1";
+        $pay_url = "http://api2.yy2169.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1";
         if($codepay_notify_url != ''){
-            $pay_url = "http://codepay.fateqq.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1&notify_url=".$codepay_notify_url;
+            $pay_url = "http://api2.yy2169.com:52888/creat_order/?id=".$codepay_id."&token=".$codepay_token."&price=".$price."&pay_id=".$pay_id."&type=1&page=1&notify_url=".$codepay_notify_url;
         }
         $pay_info['email'] = $user->email;
         $pay_info['price'] = $price;
