@@ -11,7 +11,6 @@
     </section>
 
     <!-- Main content -->
-    {if $ss_nodes_count > 0}
     <section class="content">
         <!-- START PROGRESS BARS -->
         <div class="row">
@@ -23,6 +22,8 @@
                 </div>
             </div>
         </div>
+        
+        {if $ss_nodes_count > 0}
         <div class="box box-info">
             <div class="box-header with-border">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
