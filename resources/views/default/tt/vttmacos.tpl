@@ -34,9 +34,9 @@
 <img src="/assets/public/img/tt/v1/macos/3.png" width="500px">
 <img src="/assets/public/img/tt/v1/macos/4.png" width="500px">
 <p>2）运行V2rayU软件后，在任务栏打开软件主菜单，将订阅URL信息配置到软件，最后启动代理，过程如下图所示：</p>
-<img src="/assets/public/img/tt/v/macos/5.png" width="500px">
-<img src="/assets/public/img/tt/v/macos/6.png" width="750px">
-<img src="/assets/public/img/tt/v/macos/7.png" width="740px">
+<img src="/assets/public/img/tt/v1/macos/5.png" width="500px">
+<img src="/assets/public/img/tt/v1/macos/6.png" width="500px">
+<img src="/assets/public/img/tt/v1/macos/7.png" width="500px">
 <h2>三、使用</h2>
 <p>1）验证是否成功？用浏览器（不管自带的是Safari，还是安装的chrome、firefox只要配置正确均可），这里我就用自带浏览器Safari访问www.google.com 和www.youtube.com，能打开就代表成功。</p>
 <p>2）平时使用自动模式即可，全局模式下，访问国内网站会变慢。</p>
