@@ -25,17 +25,22 @@
 <h3>2、获得【订阅URL】（如何获取？登录网站后台—节点列表—V线路订阅地址）</h3>
 <h3>3、下载软件</h3>
 <p>打开美国区APP Store搜索 Shadowrocket ，下载此软件。<!-- （注意：也可使用Shadowrocket软件，具体步骤可参考<a href="/tt/ssios" target="_blank">SS教程中shadowrocket软件使用教程</a>） --></p>
-<img src="/assets/public/img/tt/v/ios/1.jpg" width="500px">
+<img src="/assets/public/img/tt/v1/ios/1.jpg" width="500px">
 <h3>4、配置使用</h3>
 <p>1）打开 Shadowrocket 软件<img src="/assets/public/img/tt/v1/ios/8.png" width="50px"></p>
 <p>2）添加订阅URL到软件</p>
 <img src="/assets/public/img/tt/v1/ios/1.png" width="500px">
+<br />
 <img src="/assets/public/img/tt/v1/ios/2.png" width="500px">
+<br />
 <img src="/assets/public/img/tt/v1/ios/3.png" width="500px">
+<br />
 <img src="/assets/public/img/tt/v1/ios/4.png" width="500px">
 <p>3）连接到服务器节点</p>
 <img src="/assets/public/img/tt/v1/ios/5.png" width="500px">
+<br />
 <img src="/assets/public/img/tt/v1/ios/6.png" width="500px">
+<br />
 <img src="/assets/public/img/tt/v1/ios/7.png" width="500px">
 <p>4）尝试打开浏览器访问 www.google.com 和 www.youtube.com 能显示，则表示代理连接成功。</p>
 <!-- <h3>5、注意事项</h3>
