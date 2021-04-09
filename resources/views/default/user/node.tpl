@@ -11,6 +11,7 @@
     </section>
 
     <!-- Main content -->
+    {if $ss_nodes_count > 0}
     <section class="content">
         <!-- START PROGRESS BARS -->
         <div class="row">
@@ -85,6 +86,7 @@
                 </table>
             </div>
         </div>
+        {/if}
         
         {if $v_nodes_count > 0}
         <div class="box box-info">
