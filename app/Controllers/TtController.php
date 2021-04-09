@@ -19,7 +19,7 @@ class TtController extends BaseController
     
     public function vttandr($request, $response, $args)
     {
-        return $this->view()->display('tt/vttandr.tpl');
+        return $this->view()->display('tt/vttandr_1.tpl');
     }
     
     public function vttios($request, $response, $args)
