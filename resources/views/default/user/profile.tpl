@@ -49,7 +49,7 @@
                     <div class="box-footer">
                         <!-- <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a> -->
                         <ul class="list-group">
-                            <li class="list-group-item">
+                            <!-- <li class="list-group-item">
                                 <a class="btn btn-primary btn" href="pay?t=m" target="_blank">续费1月（30天，15元）</a>
                                 <span class="badge pull-right">支付宝</span>
                             </li>
@@ -60,9 +60,13 @@
                              <li class="list-group-item">
                                 <a class="btn btn-primary btn" href="pay?t=y" target="_blank">续费1年（365天，158元）</a>
                                 <span class="badge pull-right">支付宝</span>
-                            </li>
+                            </li> -->
                              <li class="list-group-item">
                                 <a class="btn btn-primary btn-warning" href="charge">原有充值码续费通道</a>
+                                <p style="color:red;">
+                                	支付通道正在升级中……暂时只能通过淘宝购买充值码方式进行续费充值。
+                                	<a href="https://item.taobao.com/item.htm?ft=t&id=641616035417" target="_blank">下单地址</a>
+                                </p>
                             </li>
                         </ul>
                     </div>
