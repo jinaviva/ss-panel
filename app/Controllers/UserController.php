@@ -500,12 +500,10 @@ class UserController extends BaseController
         
         $user = Auth::getUser();
         if ($user == null){
-            $ret['ret'] = 0;
-            $res['error_code'] = 501;
-            $res['msg'] = "获取账户失败，请重新登录";
-            return $this->echoJson($response, $res);
+            return $response->withJson("获取账户失败，请重新登录",500);
         }
         
+        DB::beginTransaction();
         $order = new Order();
         $order->plan_code = $plan_id;
         $trade_no = Tools::gen_trade_no();
@@ -523,7 +521,7 @@ class UserController extends BaseController
                 $total_amount = 158;
                 break;
             default:
-                //abort(500,'plan id error');
+                return $response->withJson("plan id error",500);
                 break;
         }
         
@@ -535,24 +533,27 @@ class UserController extends BaseController
                 $paymethod = 'wepay';
                 break;
             default:
-                //abort(500,'paymethod id error');
+                return $response->withJson("paymethod id error",500);
                 break;
         }
         $order->paymethod = $paymethod;
         $order->total_amount = $total_amount;
         $order->status = 0;
         
-        $order->save();
+        if (!$order->save()) {
+        	DB::rollback();
+        	return $response->withJson("订单创建失败,请重试!",500);
+        }
+        DB::commit();
         
         $order = Order::where('trade_no', $trade_no)
         ->where('user_id', $user->id)
         ->where('status', 0)
         ->first();
         
-        
-//         $res['ret'] = 1;
-//         $res['msg'] = $order->trade_no;
-//         return $this->echoJson($response, $res);
+        if (!$order) {
+            return $response->withJson("订单不存在或已支付,请重试！",500);
+        }
         switch ($paymethod_id) {
             // return type => 0: QRCode / 1: URL
             case 1:
@@ -564,7 +565,6 @@ class UserController extends BaseController
                 $res['type'] = 0;
                 $res['paymethod_id'] = 1;
                 $res['trade_no'] = $order->trade_no;;
-                
                 return $this->echoJson($response, $res);
                 // case 2:
                 //     // stripeAlipay
@@ -576,15 +576,31 @@ class UserController extends BaseController
                 //         'data' => $this->stripeAlipay($order)
                 //     ]);
             default:
-                // abort(500, '支付方式不存在,请重试！');
+                 return $response->withJson("支付方式不存在,请重试！",500);
         }
     }
     
     public function checkOrder($request, $response, $args){
-    
+    	$trade_no = $request->getParam("trade_no");
+    	$order = Order::where('trade_no', $trade_no)
+            ->where('user_id', Auth::getUser()->id)
+            ->first();
+
+        if (!$order) {
+        	return $response->withJson("订单不存在,请重试！",500);
+        }
+
+        if ($order->status == 0 ) {
+        	return $this->echoJson($response, ['status' => "unpaid"]);
+        }
+
+        if ($order->status == 3 ) {
+        	return $this->echoJson($response, ['status' => "success"]);
+        }
+        return $response->withJson("订单正在处理或已取消！",500);
     }
     
-    public function alipay_Notify($request, $response, $args){
+    public function alipayNotify($request, $response, $args){
         $config = require('../config/alipay.php');
         $gateway = Omnipay::create('Alipay_AopF2F');
         $gateway->setSignType('RSA2'); //RSA/RSA2
@@ -602,10 +618,10 @@ class UserController extends BaseController
                 /**
                  * Payment is successful
                  */
-//                 if (!$this->handle($_POST['out_trade_no'], $_POST['trade_no'])) {
-//                     //abort(500, 'fail');
-//                     die('fail');
-//                 }
+                if (!$this->handle($_POST['out_trade_no'], $_POST['trade_no'])) {
+                    //abort(500, 'fail');
+                    die('fail');
+                }
                 die('success'); //The response should be 'success' only
             } else {
                 /**
@@ -630,7 +646,7 @@ class UserController extends BaseController
         $gateway->setPrivateKey($config['alipay_privkey']); // 可以是路径，也可以是密钥内容
         $gateway->setAlipayPublicKey($config['alipay_pubkey']); // 可以是路径，也可以是密钥内容
         // $gateway->setNotifyUrl(url('/api/v1/order/ali_notify'));
-        $gateway->setNotifyUrl(Config::get('pay_notify_url') . '/alipay_notify');
+        $gateway->setNotifyUrl($config['pay_notify_url'] . '/alipay_notify');
         $request = $gateway->purchase();
         $request->setBizContent([
             'subject' => '充值服务',
@@ -641,10 +657,67 @@ class UserController extends BaseController
         $response = $request->send();
         $result = $response->getAlipayResponse();
         if ($result['code'] !== '10000') {
-            abort(500, $result['sub_msg']);
+            return $response->withJson($result['sub_msg'],500);
         }
         // 获取收款二维码内容
         return $response->getQrCode();
     }
     
+    private function handle($tradeNo, $callbackNo)
+    {
+    	DB::beginTransaction();
+        $order = Order::where('trade_no', $tradeNo)
+        		->lockForUpdate()
+        		->first();
+        if (!$order) {
+        	//order is not found
+        	DB::rollback();
+            //abort(500, 'fail');
+            return true;
+        }
+        if ($order->status !== 0) {
+        	DB::rollback();
+        	//abort(500, 'fail');
+            return true;
+        }
+        $user = User::where('id', $order->user_id)
+        		->lockForUpdate()
+        		->first();
+        if ($user) 
+        {
+        	switch ($order->plan_code) {
+				case 1:
+					$add_days = 30;
+					break;
+				case 2:
+					$add_days = 90;
+					break;
+				case 3:
+					$add_days = 365;
+					break;
+				default:
+					$add_days = 0;
+					break;
+			}
+			$user->addExpiredDays( $add_days );
+			if( !$user->save() ){
+	        	DB::rollback();
+	        	//abort(500, 'fail');
+	            return false;
+	        }
+        } else 
+        {
+        	// no user
+        }
+
+        $order->status = 3;
+        $order->callback_trade_no = $callbackNo;
+        if( !$order->save() ){
+        	DB::rollback();
+        	//abort(500, 'fail');
+            return false;
+        }
+        DB::commit();
+        return true;
+    }
 }
