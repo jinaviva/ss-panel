@@ -208,7 +208,7 @@
                     </div>
                     <div class="box-footer">
                         <!-- <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a> -->
-                        
+                        <a class="btn btn-primary btn-warning" href="charge">原有充值码续费通道</a>
                     </div>
                     <!-- /.box -->
                 </div>

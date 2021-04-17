@@ -47,8 +47,7 @@
                         <button type="submit" id="charge" class="btn btn-primary">充值</button>
                         <!-- <h4>本站唯一官方充值卡购买地址：<a href="{$config['buyCard']}" target="_blank" class="btn btn-warning btn-sm"> 充值码购买</a></h4>-->
                         <p style="color:red;">
-                            支付通道正在升级中……暂时只能通过淘宝购买充值码方式进行续费充值。
-                            <a href="https://item.taobao.com/item.htm?ft=t&id=641616035417" target="_blank">下单地址</a>
+                            <a href="https://item.taobao.com/item.htm?ft=t&id=641616035417" target="_blank">淘宝购买注册/充值码地址</a>
                         </p>
                     </div>
 
