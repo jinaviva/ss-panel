@@ -225,6 +225,11 @@ class Tools
             return self::genMyUUID();
         }
     }
+    
+    public static function gen_trade_no($format = false)
+    {
+        return date('YmdHis') . mt_rand(1000000, 9999999);
+    }
 
     /**
      * @return int
