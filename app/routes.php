@@ -34,6 +34,7 @@ $app->add(new WhoopsMiddleware);
 $app->get('/', 'App\Controllers\HomeController:index')->add(new Guest());
 $app->get('/r', 'App\Controllers\AuthController:register')->add(new Guest());
 $app->post('/thepaynotify', 'App\Controllers\UserController:handlePayNotify')->add(new Guest());
+$app->post('/alipay_notify', 'App\Controllers\UserController:alipayNotify')->add(new Guest());
 //$app->get('/code', 'App\Controllers\HomeController:code');
 $app->get('/tos', 'App\Controllers\HomeController:tos');
 //$app->get('/debug', 'App\Controllers\HomeController:debug');
@@ -61,6 +62,8 @@ $app->group('/user', function () {
     $this->get('/charge', 'App\Controllers\UserController:charge');
     $this->post('/charge', 'App\Controllers\UserController:handleCharge');
     $this->get('/pay', 'App\Controllers\UserController:pay');
+    $this->post('/checkout', 'App\Controllers\UserController:checkout');
+    $this->post('/check_order', 'App\Controllers\UserController:checkOrder');
     $this->get('/getlink', 'App\Controllers\UserController:getlink');
 })->add(new Auth());
 

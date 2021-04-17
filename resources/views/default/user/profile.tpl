@@ -48,8 +48,19 @@
                     </div>
                     <div class="box-footer">
                         <!-- <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a> -->
+                        <form>
+                        	<div>
+                        	<label><input name="circle" type="radio" value="1">月</label> 
+                        	<label><input name="circle" type="radio" value="2" checked>季度</label> 
+                        	<label><input name="circle" type="radio" value="3">年</label>
+                        	</div>
+                        	<div>
+                        	<label><input name="paymethod" type="radio" value="1" checked>支付宝</label> 
+                        	<label><input name="paymethod" type="radio" value="2">微信</label>
+                        	</div>
+                        </form>
                         <ul class="list-group">
-                            <!-- <li class="list-group-item">
+                            <li class="list-group-item">
                                 <a class="btn btn-primary btn" href="pay?t=m" target="_blank">续费1月（30天，15元）</a>
                                 <span class="badge pull-right">支付宝</span>
                             </li>
@@ -60,7 +71,7 @@
                              <li class="list-group-item">
                                 <a class="btn btn-primary btn" href="pay?t=y" target="_blank">续费1年（365天，158元）</a>
                                 <span class="badge pull-right">支付宝</span>
-                            </li> -->
+                            </li>
                              <li class="list-group-item">
                                 <a class="btn btn-primary btn-warning" href="charge">原有充值码续费通道</a>
                                 <p style="color:red;">

@@ -7,13 +7,12 @@
     <!-- Bootstrap 3.3.2 -->
     <link href="/assets/public/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- Font Awesome Icons -->
-    <!-- <link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <link href="/assets/public/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Ionicons -->
-    <!-- <link href="//cdn.bootcss.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet"> -->
     <link href="/assets/public/css/ionicons.min.css" rel="stylesheet">
     <!-- Theme style -->
     <link href="/assets/public/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/public/css/umi.css" rel="stylesheet" type="text/css"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link href="/assets/public/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
@@ -21,6 +20,11 @@
     <!-- jQuery 2.1.3 -->
     <script src="/assets/public/js/jquery.min.js"></script>
     <script src="/assets/public/js/jquery.cookie-1.4.1.min.js"></script>
+    <script>
+      window.routerBase = "/";
+    </script>
+ 
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -140,3 +144,104 @@
         </section>
         <!-- /.sidebar -->
     </aside>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            我的信息
+            <small>User Profile</small>
+        </h1>
+    </section>
+    <!-- Main content --><!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <i class="fa fa-user"></i>
+
+                        <h3 class="box-title">续费通道</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="root"></div>
+                    </div>
+                    <div class="box-footer">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <i class="fa fa-user"></i>
+
+                        <h3 class="box-title">我的帐号</h3>
+                    </div>
+                    <div class="box-body">
+                        <dl class="dl-horizontal">
+                            <dt>用户名</dt>
+                            <dd>{$user->user_name}</dd>
+                            <dt>邮箱</dt>
+                            <dd>{$user->email}</dd>
+                            <dt>账户状态</dt>
+                            <dd>
+                                {if $user->enable != 1 }
+                                    <span style="color:red;">已停用</span>
+                                {else}
+                                	正常
+                                {/if}
+                            </dd>
+                            <dt>账户剩余时间</dt>
+                            <dd>
+                                {if $user->getRemainingDays() > 0 }
+                                    {$user->getRemainingDays()}天
+                                {else}
+                                    <span style="color:red;">{$user->getRemainingDays()}天</span>
+                                {/if}
+                            </dd>
+                            <dt>到期时间</dt>
+                            <dd>{$user->expireTime()}</dd>
+                        </dl>
+
+                    </div>
+                    <div class="box-footer">
+                        <!-- <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a> -->
+                        
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+</div><!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div align="center">
+        {$userFooter}
+    </div>
+    <div class="pull-right">
+        <span style="margin-right:5px;color:red;">新网址：<a href="{$config['bakUrl']}"  target="_blank">{$config['bakUrl']}</a> </span><span style="margin-right:5px">|</span><span style="color:red;">永久网址（需代理）：<a href="{$config['baseUrl']}" target="_blank">{$config['baseUrl']}</a></span>         
+    </div>
+    <strong>Copyright &copy; {date("Y")} <a href="#">{$config['appName']}</a> </strong>
+    All rights reserved. | <a href="/tos" target="_blank">服务条款 </a>
+</footer>
+</div><!-- ./wrapper -->
+
+
+<!-- Bootstrap 3.3.2 JS -->
+<script src="/assets/public/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- SlimScroll -->
+<script src="/assets/public/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<!-- FastClick -->
+<script src='/assets/public/plugins/fastclick/fastclick.min.js'></script>
+<!-- AdminLTE App -->
+<script src="/assets/public/js/app.min.js" type="text/javascript"></script>
+<script src="/assets/public/js/umi.js"></script>
+<div style="display:none;">
+    {$analyticsCode}
+</div>
+</body>
+</html>

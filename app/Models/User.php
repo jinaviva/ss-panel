@@ -90,6 +90,18 @@ class User extends Model
         return Tools::toDateTime($this->attributes['expire_time']);
     }
     
+    public function addExpiredDays( $days )
+    {
+        $user_exp_time = $this->expire_time;
+        if ($user_exp_time >= time()) {
+            $this->expire_time += $days * 86400;
+        }
+        else {
+            $this->expire_time = time() + $days * 86400;
+        }
+        $this->enable = 1;
+    }
+    
     public function getRemainingDays()
     {
         $rDays = $this->attributes['expire_time'] - time();

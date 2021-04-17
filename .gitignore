@@ -8,3 +8,4 @@ composer.phar
 .settings/
 public/sstt/
 public/downloads/dl/
+config/alipay.php

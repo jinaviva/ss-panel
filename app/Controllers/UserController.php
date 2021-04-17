@@ -9,6 +9,7 @@ use App\Models\TrafficLog;
 use App\Models\ChargeCode;
 use App\Models\PayLog;
 use APP\Models\User;
+use App\Models\Order;
 use App\Services\Auth;
 use App\Services\Config;
 use App\Services\DbConfig;
@@ -17,6 +18,7 @@ use App\Utils\Tools;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Utils\V2URL;
+use Omnipay\Omnipay;
 
 
 /**
@@ -144,7 +146,7 @@ class UserController extends BaseController
 
     public function profile($request, $response, $args)
     {
-        return $this->view()->display('user/profile.tpl');
+        return $this->view()->display('user/profile_react.tpl');
     }
 
     public function edit($request, $response, $args)
@@ -486,4 +488,236 @@ class UserController extends BaseController
         }
     }
     
+    public function checkout($request, $response, $args){
+//         $config = require('../config/alipay.php');
+//         echo $config['alipay_appid'];
+        
+        //return ;
+        $plan_id = $request->getParam("plan_id");
+        $paymethod_id = $request->getParam("paymethod_id");
+        $valid_plan_id = [1,2,3];
+        $valid_paymethod_id = [1,2];
+        
+        $user = Auth::getUser();
+        if ($user == null){
+            return $response->withJson("获取账户失败，请重新登录",500);
+        }
+        
+        DB::beginTransaction();
+        $order = new Order();
+        $order->plan_code = $plan_id;
+        $trade_no = Tools::gen_trade_no();
+        $order->trade_no = $trade_no;
+        $order->user_id = $user->id;
+        
+        switch ($plan_id) {
+            case 1:
+                $total_amount = 15;
+                break;
+            case 2:
+                $total_amount = 45;
+                break;
+            case 3:
+                $total_amount = 158;
+                break;
+            default:
+                return $response->withJson("plan id error",500);
+                break;
+        }
+        
+        switch ($paymethod_id) {
+            case 1:
+                $paymethod = 'alipay';
+                break;
+            case 2:
+                $paymethod = 'wepay';
+                break;
+            default:
+                return $response->withJson("paymethod id error",500);
+                break;
+        }
+        $order->paymethod = $paymethod;
+        $order->total_amount = $total_amount;
+        $order->status = 0;
+        
+        if (!$order->save()) {
+        	DB::rollback();
+        	return $response->withJson("订单创建失败,请重试!",500);
+        }
+        DB::commit();
+        
+        $order = Order::where('trade_no', $trade_no)
+        ->where('user_id', $user->id)
+        ->where('status', 0)
+        ->first();
+        
+        if (!$order) {
+            return $response->withJson("订单不存在或已支付,请重试！",500);
+        }
+        switch ($paymethod_id) {
+            // return type => 0: QRCode / 1: URL
+            case 1:
+                // alipayF2F
+//                 if (!(int)config('no1.alipay_enable')) {
+//                     abort(500, '支付方式不可用,请重试！');
+//                 }
+                $res['data'] = $this->alipayF2F($trade_no, $order->total_amount);
+                $res['type'] = 0;
+                $res['paymethod_id'] = 1;
+                $res['trade_no'] = $order->trade_no;;
+                return $this->echoJson($response, $res);
+                // case 2:
+                //     // stripeAlipay
+                //     if (!(int)config('v2board.stripe_alipay_enable')) {
+                //         abort(500, '支付方式不可用,请重试！');
+                //     }
+                //     return response([
+                //         'type' => 1,
+                //         'data' => $this->stripeAlipay($order)
+                //     ]);
+            default:
+                 return $response->withJson("支付方式不存在,请重试！",500);
+        }
+    }
+    
+    public function checkOrder($request, $response, $args){
+    	$trade_no = $request->getParam("trade_no");
+    	$order = Order::where('trade_no', $trade_no)
+            ->where('user_id', Auth::getUser()->id)
+            ->first();
+
+        if (!$order) {
+        	return $response->withJson("订单不存在,请重试！",500);
+        }
+
+        if ($order->status == 0 ) {
+        	return $this->echoJson($response, ['status' => "unpaid"]);
+        }
+
+        if ($order->status == 3 ) {
+        	return $this->echoJson($response, ['status' => "success"]);
+        }
+        return $response->withJson("订单正在处理或已取消！",500);
+    }
+    
+    public function alipayNotify($request, $response, $args){
+        $config = require('../config/alipay.php');
+        $gateway = Omnipay::create('Alipay_AopF2F');
+        $gateway->setSignType('RSA2'); //RSA/RSA2
+        $gateway->setAppId($config['alipay_appid']);
+        $gateway->setPrivateKey($config['alipay_privkey']); // 可以是路径，也可以是密钥内容
+        $gateway->setAlipayPublicKey($config['alipay_pubkey']); // 可以是路径，也可以是密钥内容
+        $request = $gateway->completePurchase();
+        $request->setParams($_POST); //Optional
+        try {
+            /** @var \Omnipay\Alipay\Responses\AopCompletePurchaseResponse $response */
+            $response1 = $request->send();
+        
+            if ($response1->isPaid()) {
+                // if (1) {
+                /**
+                 * Payment is successful
+                 */
+                if (!$this->handle($_POST['out_trade_no'], $_POST['trade_no'])) {
+                    //abort(500, 'fail');
+                    die('fail');
+                }
+                die('success'); //The response should be 'success' only
+            } else {
+                /**
+                 * Payment is not successful
+                 */
+                die('fail');
+            }
+        } catch (Exception $e) {
+            /**
+             * Payment is not successful
+             */
+            die('fail');
+        }
+    }
+    
+    private function alipayF2F($tradeNo, $payAmount)
+    {
+        $config = require('../config/alipay.php');
+        $gateway = Omnipay::create('Alipay_AopF2F');
+        $gateway->setSignType('RSA2'); //RSA/RSA2
+        $gateway->setAppId($config['alipay_appid']);
+        $gateway->setPrivateKey($config['alipay_privkey']); // 可以是路径，也可以是密钥内容
+        $gateway->setAlipayPublicKey($config['alipay_pubkey']); // 可以是路径，也可以是密钥内容
+        // $gateway->setNotifyUrl(url('/api/v1/order/ali_notify'));
+        $gateway->setNotifyUrl($config['pay_notify_url'] . '/alipay_notify');
+        $request = $gateway->purchase();
+        $request->setBizContent([
+            'subject' => '充值服务',
+            'out_trade_no' => $tradeNo,
+            'total_amount' => $payAmount
+        ]);
+        /** @var \Omnipay\Alipay\Responses\AopTradePreCreateResponse $response */
+        $response = $request->send();
+        $result = $response->getAlipayResponse();
+        if ($result['code'] !== '10000') {
+            return $response->withJson($result['sub_msg'],500);
+        }
+        // 获取收款二维码内容
+        return $response->getQrCode();
+    }
+    
+    private function handle($tradeNo, $callbackNo)
+    {
+    	DB::beginTransaction();
+        $order = Order::where('trade_no', $tradeNo)
+        		->lockForUpdate()
+        		->first();
+        if (!$order) {
+        	//order is not found
+        	DB::rollback();
+            //abort(500, 'fail');
+            return true;
+        }
+        if ($order->status !== 0) {
+        	DB::rollback();
+        	//abort(500, 'fail');
+            return true;
+        }
+        $user = User::where('id', $order->user_id)
+        		->lockForUpdate()
+        		->first();
+        if ($user) 
+        {
+        	switch ($order->plan_code) {
+				case 1:
+					$add_days = 30;
+					break;
+				case 2:
+					$add_days = 90;
+					break;
+				case 3:
+					$add_days = 365;
+					break;
+				default:
+					$add_days = 0;
+					break;
+			}
+			$user->addExpiredDays( $add_days );
+			if( !$user->save() ){
+	        	DB::rollback();
+	        	//abort(500, 'fail');
+	            return false;
+	        }
+        } else 
+        {
+        	// no user
+        }
+
+        $order->status = 3;
+        $order->callback_trade_no = $callbackNo;
+        if( !$order->save() ){
+        	DB::rollback();
+        	//abort(500, 'fail');
+            return false;
+        }
+        DB::commit();
+        return true;
+    }
 }
